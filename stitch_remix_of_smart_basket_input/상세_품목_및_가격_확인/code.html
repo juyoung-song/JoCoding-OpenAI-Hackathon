@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>상세 품목 및 가격 확인 - 똑장</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for clean look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-gray-100 antialiased selection:bg-primary/20">
+<!-- Mobile Container -->
+<div class="max-w-md mx-auto min-h-screen bg-white dark:bg-gray-900 shadow-xl relative flex flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+<div class="px-4 h-14 flex items-center justify-between">
+<button class="p-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300">
+<span class="material-icons text-2xl">arrow_back</span>
+</button>
+<h1 class="text-base font-semibold text-center absolute left-1/2 transform -translate-x-1/2">상세 품목 확인</h1>
+<button class="p-2 -mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300">
+<span class="material-icons text-2xl">share</span>
+</button>
+</div>
+</header>
+<!-- Main Scrollable Content -->
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- Plan Summary Card -->
+<div class="p-5">
+<div class="bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 rounded-xl p-5 border border-primary/20 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<div>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary text-white mb-2">
+<span class="material-icons text-[14px] mr-1">bolt</span>
+                                최저가 추천
+                            </span>
+<h2 class="text-xl font-bold text-gray-900 dark:text-white">B마트 알뜰 플랜</h2>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">배달비 포함 • 30분 내 도착</p>
+</div>
+<div class="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-sm">
+<img class="w-8 h-8 object-contain rounded-full" data-alt="Grocery store logo placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHro8GuVmX7u9thSXyHpU84JrBybzLkKdtdOjq2qFAxNgNy9-vl6VTXF1Fc1KSntIy2JbjMdcQPNwCEuz_Xw6lO6RL8KPzWqGeUR4lXlWAN4hmlhrWfWjlcDaCJCzZUGs79y5lYJNg4qgTKnDU-BxMT902E7BLkvOIE-IhttwWHc6HHwMnl603lVaGRJAzigeX2DztTr-LlMsX0r4pIw_CkMDa2Beu_7MjH8qAtas9hyVlcP3fG2gdU_j_NbxVUxMPNWZFvAFCOfk"/>
+</div>
+</div>
+<div class="flex items-end justify-between border-t border-primary/10 pt-4 relative z-10">
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium">총 예상 금액</p>
+<p class="text-2xl font-bold text-primary">42,500원</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium mb-1">매칭률</p>
+<div class="flex items-center space-x-1">
+<span class="text-sm font-semibold text-gray-800 dark:text-gray-200">9/10 품목</span>
+<div class="w-16 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[90%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Trust Indicator Banner -->
+<div class="mt-4 flex items-center justify-center space-x-2 text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 py-2 rounded-lg border border-gray-100 dark:border-gray-800">
+<span class="material-icons text-sm text-green-500">check_circle</span>
+<span>실시간 재고 확인됨</span>
+<span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+<span>5분 전 업데이트</span>
+</div>
+</div>
+<!-- Item List Section -->
+<div class="px-5 pb-6 space-y-6">
+<!-- Category: Fresh Food -->
+<div>
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                        신선식품
+                        <span class="ml-2 text-xs font-normal text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">3개</span>
+</h3>
+<div class="space-y-3">
+<!-- Item 1: Exact Match -->
+<div class="group bg-white dark:bg-gray-800 rounded-xl p-3 border border-gray-100 dark:border-gray-700 shadow-sm flex gap-3 hover:border-primary/30 transition-all">
+<div class="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-700">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Close up of fresh red apple" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzjVTReicJ1pVTt1eohxW_ZAHsH_bpvaL3PsAtJcJqMQmD2B6zxRrrz0zlrWrGdFISCvlIWoWMvYD8Dzl0TBjGOCbaScMW1AbnQGcndDCnqbIuYqzwW712TbB5z_NYLtnQjs-Xh494oPIq5_sCCfap4W8AFQmvmXgL1ezL06cKeYF9IWfYfDFhQpBA4DSjXml5ynQcOw_rSgU5947EgAh-BEQhZ7kdp1u6mvD5SxRh82BOr_gd16u-8Rebrg6yCW6WL2V-0ATnAmo"/>
+<div class="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-[2px] text-white text-[10px] py-0.5 text-center font-medium">
+                                    x 3개
+                                </div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="text-sm font-semibold text-gray-900 dark:text-white line-clamp-1">청송 꿀사과 1.5kg</h4>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800">
+                                            정확히 일치
+                                        </span>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">요청한 '부사' 품종입니다.</p>
+</div>
+<div class="flex justify-between items-end mt-2">
+<div class="flex items-center space-x-1 text-xs text-gray-400">
+<span class="material-icons text-[12px]">verified</span>
+<span>API 인증</span>
+</div>
+<span class="text-base font-bold text-gray-900 dark:text-white">12,000원</span>
+</div>
+</div>
+</div>
+<!-- Item 2: Recommended Alternative -->
+<div class="group bg-white dark:bg-gray-800 rounded-xl p-3 border border-gray-100 dark:border-gray-700 shadow-sm flex gap-3 hover:border-primary/30 transition-all">
+<div class="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-700">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Carton of fresh milk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBEC5KCmWhjWslIHxY4AKBCy4iyV1sQ5ItIJOeOpHvcWsBxRfpKzZMhTwHmLmrt_haWZFE3gVN_QGmsnm5IwIX05wVk3nzsI2mkLpuhzpBnIS0U8F4l-SyXxzbRav-NLyZ0ywmSZ_XyEYzpPnUSo1f67z8l3DXPeY1THwwx90PzW2p9wWvf4xvDv4KKZ68a99bZc_SQFdEXUMPTddwJTfvGLXmH6GrixLsPKkEGi4b4dlTaUzxjaauluk6Dedr7NC2jV1atmIT0O8"/>
+<div class="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-[2px] text-white text-[10px] py-0.5 text-center font-medium">
+                                    x 1개
+                                </div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="text-sm font-semibold text-gray-900 dark:text-white line-clamp-1">매일우유 저지방 1L</h4>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary border border-primary/20">
+<span class="material-icons text-[10px] mr-1">smart_toy</span>
+                                            AI 추천
+                                        </span>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">서울우유 품절로 대체되었습니다.</p>
+</div>
+<div class="flex justify-between items-end mt-2">
+<div class="flex items-center space-x-1 text-xs text-gray-400">
+<span class="material-icons text-[12px]">trending_down</span>
+<span class="line-through">3,200원</span>
+</div>
+<div class="text-right">
+<span class="text-xs text-primary font-medium mr-1">6%↓</span>
+<span class="text-base font-bold text-gray-900 dark:text-white">2,980원</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 3: Best Value -->
+<div class="group bg-white dark:bg-gray-800 rounded-xl p-3 border border-gray-100 dark:border-gray-700 shadow-sm flex gap-3 hover:border-primary/30 transition-all">
+<div class="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-700">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Packaged tofu block" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj9qYKa7HVeE-0d8HHk-6j7KebOyom3RnLzzjK8m9j2bye2mgl23yjBNwIRTo6SFp0MFog6EMqDsuU6B2PzhtNujCzzlUpDxq4smvxLNRJVD7j2L97Yxp0dDjx8I_JcqYQnhxiHPzlqHRwa4xZJPX2OKcd4Z8JkuIkXV6kah-m3ltutfW6irANLrF9AIV7lWN2kl28_sh-i5agPLsTKgoBPozrqYPojgDcV0PXqEACK4954Lx0Z04T3ZOR9gDimsLXmAT2VPCjJOw"/>
+<div class="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-[2px] text-white text-[10px] py-0.5 text-center font-medium">
+                                    x 2개
+                                </div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="text-sm font-semibold text-gray-900 dark:text-white line-clamp-1">풀무원 국산콩 두부</h4>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800">
+                                            가성비
+                                        </span>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">100g 당 가격이 가장 낮아요.</p>
+</div>
+<div class="flex justify-between items-end mt-2">
+<div class="flex items-center space-x-1 text-xs text-gray-400">
+<span class="material-icons text-[12px]">verified</span>
+<span>실시간</span>
+</div>
+<span class="text-base font-bold text-gray-900 dark:text-white">3,200원</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Category: Processed Food & Others -->
+<div class="pt-2">
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                        가공식품 및 기타
+                        <span class="ml-2 text-xs font-normal text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">1개</span>
+</h3>
+<div class="space-y-3">
+<!-- Item 4: Regular Item -->
+<div class="group bg-white dark:bg-gray-800 rounded-xl p-3 border border-gray-100 dark:border-gray-700 shadow-sm flex gap-3 hover:border-primary/30 transition-all">
+<div class="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-700">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Bag of potato chips" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHg1MZGX3qQQpz_Adot_U7ZG5gW94ylTmFVPDad9413fmhHRsENi4MzUWgRZrIVEMVvpGZA5qyzVXCaS4PR79xSuntAQXCaPgxFctPt3O1Q-vtzfXoGu4ooBlZOJUWfArfE8MFnj4UUx8r0kLslfjZPlQU4fegNwNOK5kaTCF8GZJgDc4ZZ_RLTOVWPJ4D8em0xT5X2jUJeHG466g_FjVQVQQNt-OxLPp-wYHNWUELYlGlFVi0MEWC4FH63dwIGEiElWYrWwzB_yQ"/>
+<div class="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-[2px] text-white text-[10px] py-0.5 text-center font-medium">
+                                    x 1개
+                                </div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="text-sm font-semibold text-gray-900 dark:text-white line-clamp-1">포카칩 오리지널 66g</h4>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800">
+                                            정확히 일치
+                                        </span>
+</div>
+</div>
+<div class="flex justify-between items-end mt-2">
+<div class="flex items-center space-x-1 text-xs text-gray-400">
+<span class="material-icons text-[12px]">verified</span>
+<span>API 인증</span>
+</div>
+<span class="text-base font-bold text-gray-900 dark:text-white">1,500원</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Missing Items Section -->
+<div class="pt-4 border-t border-dashed border-gray-200 dark:border-gray-700">
+<h3 class="text-sm font-semibold text-gray-400 dark:text-gray-500 mb-3 flex items-center">
+                        미포함 품목
+                        <span class="ml-2 text-xs font-normal text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">1개</span>
+</h3>
+<div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-3 border border-gray-100 dark:border-gray-800 flex items-center justify-between opacity-70">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+<span class="material-icons text-gray-400 text-xl">production_quantity_limits</span>
+</div>
+<div>
+<h4 class="text-sm font-semibold text-gray-500 dark:text-gray-400">유기농 바질 10g</h4>
+<p class="text-xs text-gray-400">현재 모든 매장에서 품절입니다.</p>
+</div>
+</div>
+<button class="text-primary text-xs font-medium px-2 py-1 hover:bg-primary/5 rounded">대체품 찾기</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Sticky Action Bar -->
+<div class="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 p-4 pb-8 safe-area-pb shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<div class="flex items-center justify-between mb-3 px-1">
+<span class="text-sm text-gray-500 dark:text-gray-400">총 4개 품목</span>
+<span class="text-lg font-bold text-primary">42,500원</span>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-4 rounded-xl shadow-lg shadow-primary/30 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+<span>이 플랜으로 결정하기</span>
+<span class="material-icons text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>

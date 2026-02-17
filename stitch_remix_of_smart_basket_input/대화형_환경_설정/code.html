@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>똑장 - 대화형 환경 설정</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+            extend: {
+                colors: {
+                "primary": "#137fec",
+                "background-light": "#f6f7f8",
+                "background-dark": "#101922",
+                },
+                fontFamily: {
+                "display": ["Inter", "sans-serif"]
+                },
+                borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for clean look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Message bubble tails */
+        .bubble-left {
+            border-bottom-left-radius: 4px;
+        }
+        .bubble-right {
+            border-bottom-right-radius: 4px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display h-screen w-full overflow-hidden flex justify-center items-center">
+<!-- Mobile Frame Simulation -->
+<div class="w-full max-w-md h-full bg-white dark:bg-gray-900 shadow-2xl relative flex flex-col overflow-hidden">
+<!-- Header -->
+<header class="bg-white dark:bg-gray-900 px-6 py-4 border-b border-gray-100 dark:border-gray-800 z-10 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<button class="p-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400">
+<span class="material-icons-round text-2xl">arrow_back</span>
+</button>
+<div class="text-sm font-semibold text-gray-900 dark:text-white">초기 설정</div>
+<button class="text-sm text-gray-400 hover:text-primary transition-colors font-medium">건너뛰기</button>
+</div>
+<!-- Progress Bar -->
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center text-xs font-medium text-gray-500 dark:text-gray-400">
+<span class="text-primary font-bold">1/4 단계</span>
+<span>25%</span>
+</div>
+<div class="w-full h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-1/4 transition-all duration-500 ease-out"></div>
+</div>
+</div>
+</header>
+<!-- Chat Area -->
+<main class="flex-1 overflow-y-auto px-5 py-6 space-y-6 no-scrollbar bg-white dark:bg-gray-900">
+<!-- Date Separator -->
+<div class="flex justify-center">
+<span class="text-[10px] font-medium text-gray-400 bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded-full uppercase tracking-wider">오늘</span>
+</div>
+<!-- AI Message 1 -->
+<div class="flex items-start gap-3">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
+<span class="material-icons-round text-primary text-lg">smart_toy</span>
+</div>
+<div class="flex flex-col gap-1 max-w-[80%]">
+<span class="text-xs text-gray-500 ml-1">똑장이</span>
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3.5 rounded-2xl rounded-tl-none text-[15px] leading-relaxed shadow-sm">
+                        안녕하세요! 👋<br/>최적의 장보기를 도와드리기 위해 몇 가지 설정이 필요해요.
+                    </div>
+</div>
+</div>
+<!-- AI Message 2 -->
+<div class="flex items-start gap-3">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden opacity-0"> <!-- Placeholder for alignment -->
+</div>
+<div class="flex flex-col gap-1 max-w-[80%]">
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3.5 rounded-2xl rounded-tl-none text-[15px] leading-relaxed shadow-sm">
+                        먼저, 현재 거주하시는 지역을 알려주시겠어요?
+                    </div>
+<span class="text-[10px] text-gray-400 ml-1">오전 10:01</span>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex items-end justify-end gap-2">
+<span class="text-[10px] text-gray-400 mb-1">오전 10:02</span>
+<div class="bg-primary text-white p-3.5 rounded-2xl rounded-tr-none text-[15px] leading-relaxed shadow-md max-w-[80%]">
+                    서울시 강남구 역삼동입니다.
+                </div>
+</div>
+<!-- AI Message 3 (Current Step) -->
+<div class="flex items-start gap-3 animate-fade-in-up">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
+<span class="material-icons-round text-primary text-lg">smart_toy</span>
+</div>
+<div class="flex flex-col gap-1 max-w-[85%]">
+<span class="text-xs text-gray-500 ml-1">똑장이</span>
+<div class="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3.5 rounded-2xl rounded-tl-none text-[15px] leading-relaxed shadow-sm">
+                        네, 확인했어요! 장보러 가실 때 주로 어떤 <strong>교통수단</strong>을 이용하시나요? 🛒
+                    </div>
+<span class="text-[10px] text-gray-400 ml-1">오전 10:02</span>
+</div>
+</div>
+<!-- Spacer for bottom area -->
+<div class="h-4"></div>
+</main>
+<!-- Bottom Input Area -->
+<footer class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 p-4 pb-6 z-20">
+<!-- Quick Suggestion Chips -->
+<div class="flex gap-2 mb-4 overflow-x-auto no-scrollbar pb-1">
+<button class="flex items-center gap-1.5 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-primary/5 hover:border-primary hover:text-primary transition-all whitespace-nowrap shadow-sm active:scale-95">
+<span class="material-icons-round text-lg">directions_walk</span>
+                    도보
+                </button>
+<button class="flex items-center gap-1.5 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-primary/5 hover:border-primary hover:text-primary transition-all whitespace-nowrap shadow-sm active:scale-95">
+<span class="material-icons-round text-lg">directions_bus</span>
+                    대중교통
+                </button>
+<button class="flex items-center gap-1.5 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-primary/5 hover:border-primary hover:text-primary transition-all whitespace-nowrap shadow-sm active:scale-95">
+<span class="material-icons-round text-lg">directions_car</span>
+                    차량
+                </button>
+</div>
+<!-- Input Field -->
+<div class="relative flex items-end gap-2">
+<div class="flex-1 bg-gray-50 dark:bg-gray-800 rounded-xl flex items-center border border-transparent focus-within:border-primary/50 focus-within:bg-white dark:focus-within:bg-gray-900 focus-within:ring-4 focus-within:ring-primary/10 transition-all">
+<input class="w-full bg-transparent border-none py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-0 text-[15px]" placeholder="직접 입력하기..." type="text"/>
+</div>
+<button class="flex-shrink-0 w-12 h-12 bg-primary hover:bg-blue-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-primary/30 transition-all active:scale-95">
+<span class="material-icons-round">arrow_upward</span>
+</button>
+</div>
+</footer>
+</div>
+</body></html>

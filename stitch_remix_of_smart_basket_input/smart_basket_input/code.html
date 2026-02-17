@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>스마트 장바구니 입력 - Smart Shopping</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+            extend: {
+                colors: {
+                "primary": "#137fec",
+                "background-light": "#ffffff",
+                "background-dark": "#101922",
+                },
+                fontFamily: {
+                "display": ["Inter", "sans-serif", "Apple SD Gothic Neo", "Malgun Gothic", "sans-serif"]
+                },
+                borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+            },
+        }
+    </script>
+<style>.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-50 text-slate-800 font-display h-screen flex justify-center overflow-hidden">
+<div class="w-full max-w-md h-full flex flex-col relative bg-white shadow-2xl">
+<header class="flex items-center justify-between px-6 pt-12 pb-4 bg-white/90 backdrop-blur-md sticky top-0 z-20 border-b border-gray-100">
+<button class="p-2 -ml-2 rounded-full hover:bg-slate-100 transition-colors">
+<span class="material-icons text-slate-800">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold tracking-tight text-slate-900">장바구니 담기</h1>
+<button class="text-primary font-medium px-2 py-1 rounded-lg hover:bg-primary/10 transition-colors">
+            분석
+        </button>
+</header>
+<main class="flex-1 flex flex-col px-6 overflow-hidden bg-white">
+<div class="mt-4 mb-6">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-icons text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="block w-full pl-12 pr-4 py-4 bg-gray-50 border-none ring-1 ring-gray-200 rounded-xl text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-primary focus:outline-none transition-all shadow-sm" placeholder="직접 입력 (예: 우유, 콩나물)" type="text"/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar space-y-4 pb-48">
+<div class="flex items-center justify-between mb-2">
+<h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">담은 상품 (2)</h2>
+<span class="text-xs text-primary bg-primary/10 px-2.5 py-1 rounded-full font-medium">예상 총액 12,500원</span>
+</div>
+<div class="group relative bg-white rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.05)] border border-gray-100 hover:border-primary/50 transition-all">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center text-orange-500">
+<span class="material-icons text-2xl">egg</span>
+</div>
+<div>
+<h3 class="font-bold text-lg leading-tight mb-1 text-slate-800">계란 30구</h3>
+<p class="text-sm text-slate-500">특란 한 판</p>
+</div>
+</div>
+<button class="text-slate-300 hover:text-red-500 transition-colors p-1">
+<span class="material-icons text-xl">close</span>
+</button>
+</div>
+<div class="flex gap-2 mt-3">
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg text-xs font-semibold bg-gray-100 text-slate-600 hover:bg-gray-200 transition-colors">
+<span class="material-icons text-sm">push_pin</span>
+                        브랜드 고정
+                    </button>
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg text-xs font-semibold bg-primary/5 text-primary ring-1 ring-primary/20 hover:bg-primary/10 transition-colors">
+<span class="material-icons text-sm">auto_awesome</span>
+                        추천 모드
+                    </button>
+</div>
+</div>
+<div class="group relative bg-white rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.05)] border border-gray-100 hover:border-primary/50 transition-all">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center text-green-600">
+<span class="material-icons text-2xl">spa</span>
+</div>
+<div>
+<h3 class="font-bold text-lg leading-tight mb-1 text-slate-800">풀무원 두부 2개</h3>
+<p class="text-sm text-slate-500">부침용 • 300g x 2</p>
+</div>
+</div>
+<button class="text-slate-300 hover:text-red-500 transition-colors p-1">
+<span class="material-icons text-xl">close</span>
+</button>
+</div>
+<div class="flex gap-2 mt-3">
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg text-xs font-semibold bg-primary text-white shadow-md shadow-primary/20">
+<span class="material-icons text-sm">check</span>
+                        브랜드 고정
+                    </button>
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg text-xs font-semibold bg-gray-100 text-slate-600 hover:bg-gray-200 transition-colors">
+<span class="material-icons text-sm">auto_awesome</span>
+                        추천 모드
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<div class="absolute bottom-0 left-0 w-full z-30">
+<div class="h-24 bg-gradient-to-t from-white to-transparent w-full absolute -top-20 pointer-events-none"></div>
+<div class="bg-white pb-10 pt-4 flex flex-col items-center relative">
+<div class="flex gap-2 mb-8 overflow-x-auto w-full px-6 no-scrollbar snap-x">
+<button class="snap-center shrink-0 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-slate-600 flex items-center gap-2 shadow-sm whitespace-nowrap hover:bg-gray-50 transition-colors">
+<span class="material-icons text-base text-primary">lightbulb</span>
+                    "우유랑 식빵 추가해줘"
+                </button>
+<button class="snap-center shrink-0 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-slate-600 flex items-center gap-2 shadow-sm whitespace-nowrap hover:bg-gray-50 transition-colors">
+<span class="material-icons text-base text-green-600">history</span>
+                    지난주 장바구니 불러오기
+                </button>
+</div>
+<div class="relative flex items-center justify-center">
+<div class="absolute w-24 h-24 bg-primary/10 rounded-full animate-pulse"></div>
+<div class="absolute w-20 h-20 bg-primary/20 rounded-full blur-md"></div>
+<button class="relative w-20 h-20 bg-primary hover:bg-blue-600 text-white rounded-full shadow-lg shadow-primary/40 flex items-center justify-center transition-transform active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary/20">
+<span class="material-icons text-4xl">mic</span>
+</button>
+</div>
+<p class="mt-4 text-sm font-semibold text-slate-500">음성으로 입력하기</p>
+</div>
+</div>
+</div>
+
+</body></html>

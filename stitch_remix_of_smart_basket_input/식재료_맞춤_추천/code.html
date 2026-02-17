@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>추천 상품 - 쇼핑 완료</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+            },
+            fontFamily: {
+              "display": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] antialiased">
+<!-- Header Section -->
+<div class="sticky top-0 z-20 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-[#dbe0e6] dark:border-primary/20">
+<div class="flex items-center p-4 justify-between max-w-2xl mx-auto">
+<div class="text-[#111418] dark:text-white flex size-10 shrink-0 items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-tight flex-1 text-center pr-10">추천 상품</h2>
+</div>
+</div>
+<main class="max-w-2xl mx-auto pb-32">
+<!-- Success Confirmation -->
+<div class="px-4 pt-8 pb-4">
+<div class="flex items-center gap-3 mb-2">
+<div class="bg-primary/10 p-2 rounded-full">
+<span class="material-symbols-outlined text-primary fill-icon text-3xl">check_circle</span>
+</div>
+<h1 class="text-[#111418] dark:text-white text-2xl font-bold leading-tight">구매해 주셔서 감사합니다!</h1>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-base">주문이 성공적으로 완료되었습니다. 고객님을 위한 특별한 제안을 확인해보세요.</p>
+</div>
+<!-- Trust Block / Personalization Info -->
+<div class="p-4">
+<div class="flex flex-col items-start justify-between gap-4 rounded-xl border border-[#dbe0e6] dark:border-primary/30 bg-white dark:bg-gray-900/50 p-5 sm:flex-row sm:items-center">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">auto_awesome</span>
+<p class="text-[#111418] dark:text-white text-base font-bold">맞춤형 추천</p>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-sm leading-normal">고객님의 최근 쇼핑 내역과 선호도를 분석하여 선별한 아이템입니다.</p>
+</div>
+<button class="text-sm font-bold leading-normal tracking-wide flex items-center gap-2 text-primary whitespace-nowrap">
+                    더 보기
+                    <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Section Title -->
+<div class="px-4 pt-6 pb-2">
+<h3 class="text-[#111418] dark:text-white text-xl font-bold">회원님을 위한 추천 상품</h3>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-2 gap-4 p-4">
+<!-- Item 1 -->
+<div class="flex flex-col gap-3 group">
+<div class="relative w-full aspect-[4/5] bg-center bg-no-repeat bg-cover rounded-xl overflow-hidden shadow-sm" data-alt="White premium cotton t-shirt on a minimalist background" style="background-image: url('https://images.unsplash.com/photo-1550583724-1255818c053b?q=80&amp;w=1000&amp;auto=format&amp;fit=crop');">
+<button class="absolute top-2 right-2 p-2 bg-white/80 backdrop-blur rounded-full text-[#617589] hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1 px-1">
+<p class="text-[#111418] dark:text-white text-sm font-medium leading-tight line-clamp-2">[유기농] 신선한 A2 우유 1L</p>
+<p class="text-primary text-base font-bold">4,500원</p>
+<button class="mt-2 w-full flex items-center justify-center gap-2 bg-primary text-white py-2.5 rounded-lg text-sm font-bold hover:bg-primary/90 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-lg">shopping_basket</span>
+                        장바구니 담기
+                    </button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex flex-col gap-3 group">
+<div class="relative w-full aspect-[4/5] bg-center bg-no-repeat bg-cover rounded-xl overflow-hidden shadow-sm" data-alt="Pair of dark grey tailored slacks" style="background-image: url('https://images.unsplash.com/photo-1506976785307-8732e854ad03?q=80&amp;w=1000&amp;auto=format&amp;fit=crop');">
+<button class="absolute top-2 right-2 p-2 bg-white/80 backdrop-blur rounded-full text-[#617589]">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1 px-1">
+<p class="text-[#111418] dark:text-white text-sm font-medium leading-tight line-clamp-2">[농장직송] 무항생제 신선란 15구</p>
+<p class="text-primary text-base font-bold">6,800원</p>
+<button class="mt-2 w-full flex items-center justify-center gap-2 bg-primary text-white py-2.5 rounded-lg text-sm font-bold hover:bg-primary/90 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-lg">shopping_basket</span>
+                        장바구니 담기
+                    </button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex flex-col gap-3 group">
+<div class="relative w-full aspect-[4/5] bg-center bg-no-repeat bg-cover rounded-xl overflow-hidden shadow-sm" data-alt="Classic white leather sneakers" style="background-image: url('https://images.unsplash.com/photo-1602491673980-73aa38de027a?q=80&amp;w=1000&amp;auto=format&amp;fit=crop');">
+<button class="absolute top-2 right-2 p-2 bg-white/80 backdrop-blur rounded-full text-[#617589]">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1 px-1">
+<p class="text-[#111418] dark:text-white text-sm font-medium leading-tight line-clamp-2">[한돈] 수육용 삼겹살 600g</p>
+<p class="text-primary text-base font-bold">15,800원</p>
+<button class="mt-2 w-full flex items-center justify-center gap-2 bg-primary text-white py-2.5 rounded-lg text-sm font-bold hover:bg-primary/90 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-lg">shopping_basket</span>
+                        장바구니 담기
+                    </button>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex flex-col gap-3 group">
+<div class="relative w-full aspect-[4/5] bg-center bg-no-repeat bg-cover rounded-xl overflow-hidden shadow-sm" data-alt="Minimalist beige canvas tote bag" style="background-image: url('https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?q=80&amp;w=1000&amp;auto=format&amp;fit=crop');">
+<button class="absolute top-2 right-2 p-2 bg-white/80 backdrop-blur rounded-full text-[#617589]">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex flex-col gap-1 px-1">
+<p class="text-[#111418] dark:text-white text-sm font-medium leading-tight line-clamp-2">[고당도] 멕시코산 생 아보카도 3입</p>
+<p class="text-primary text-base font-bold">9,900원</p>
+<button class="mt-2 w-full flex items-center justify-center gap-2 bg-primary text-white py-2.5 rounded-lg text-sm font-bold hover:bg-primary/90 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-lg">shopping_basket</span>
+                        장바구니 담기
+                    </button>
+</div>
+</div>
+</div>
+<!-- Empty State Fallback / Load More -->
+<div class="p-8 flex flex-col items-center justify-center text-center">
+<button class="px-6 py-2 border-2 border-primary text-primary rounded-full font-bold hover:bg-primary/5 transition-colors">
+                추천 상품 더 보기
+            </button>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-background-dark border-t border-[#f0f2f4] dark:border-primary/10 max-w-2xl mx-auto">
+<div class="flex gap-2 px-4 pb-6 pt-2">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#617589] hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">home</span>
+<p class="text-[10px] font-medium uppercase tracking-wider">홈</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#617589] hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">search</span>
+<p class="text-[10px] font-medium uppercase tracking-wider">검색</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined text-2xl fill-icon">auto_awesome</span>
+<p class="text-[10px] font-bold uppercase tracking-wider">추천</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#617589] hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">favorite</span>
+<p class="text-[10px] font-medium uppercase tracking-wider">찜</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#617589] hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">person</span>
+<p class="text-[10px] font-medium uppercase tracking-wider">마이</p>
+</a>
+</div>
+</nav>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed bottom-24 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/40 hover:scale-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-3xl fill-icon">chat</span>
+<!-- Optional Notification Dot -->
+<span class="absolute top-0 right-0 h-4 w-4 rounded-full bg-red-500 border-2 border-white"></span>
+</button>
+</body></html>

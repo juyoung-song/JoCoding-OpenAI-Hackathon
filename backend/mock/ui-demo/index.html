@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>똑장 오프라인 시연</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#137fec",
+            "primary-dark": "#0b5db0",
+            "text-main": "#1e293b",
+            "text-sub": "#64748b",
+          },
+          fontFamily: {
+            display: ["Inter", "Noto Sans KR", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { min-height: 100dvh; font-family: "Inter", "Noto Sans KR", sans-serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-slate-100 text-text-main flex justify-center p-4">
+  <div class="w-full max-w-md min-h-[90dvh] bg-white rounded-[28px] shadow-2xl overflow-hidden border border-slate-200 relative">
+    <header class="px-6 pt-10 pb-4 border-b border-slate-100 bg-white sticky top-0 z-20">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <p class="text-xs text-primary font-bold tracking-wider">똑똑한 장보기 에이전트</p>
+          <h1 class="text-2xl font-bold mt-1">오프라인 시연 화면</h1>
+          <p class="text-xs text-slate-500 mt-1">기획서 16번 화면/API 매핑 기준</p>
+        </div>
+        <button id="reset-app" type="button" class="shrink-0 rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50">
+          처음 화면
+        </button>
+      </div>
+    </header>
+
+    <main class="p-5 pb-28 overflow-y-auto no-scrollbar space-y-5">
+      <section id="setup-screen" class="space-y-4">
+        <div>
+          <h2 class="text-lg font-bold">1) 쇼핑 환경 설정</h2>
+          <p class="text-xs text-slate-500">`shopping_preferences_setup` 참조</p>
+        </div>
+        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-3">
+          <label class="block text-sm font-medium">주소 입력</label>
+          <div class="space-y-2">
+            <input id="address" class="rounded-lg border-slate-300 text-sm w-full" value="서울 강남구 테헤란로" placeholder="예: 서울 강남구 테헤란로 123" />
+            <button id="use-current-location" type="button" class="w-full rounded-lg border border-slate-300 bg-white py-2 text-sm font-medium hover:bg-slate-50">
+              현재 위치 사용
+            </button>
+            <p id="location-status" class="text-xs text-slate-500">입력한 주소를 좌표로 변환해 사용합니다.</p>
+          </div>
+          <div class="hidden">
+            <input id="lat" value="37.498" />
+            <input id="lng" value="127.028" />
+          </div>
+          <label class="block text-sm font-medium">이동 수단</label>
+          <select id="travel_mode" class="rounded-lg border-slate-300 text-sm">
+            <option value="walk">도보</option>
+            <option value="transit">대중교통</option>
+            <option value="car" selected>차량</option>
+          </select>
+          <label class="block text-sm font-medium">최대 이동 시간(분)</label>
+          <input id="max_travel" type="number" min="5" max="60" value="25" class="rounded-lg border-slate-300 text-sm w-full" />
+          <label class="block text-sm font-medium">장바구니 (한 줄에 하나, `품목,수량`)</label>
+          <textarea id="basket" class="rounded-lg border-slate-300 text-sm w-full h-28">우유,1
+계란,1
+사과,1</textarea>
+        </div>
+        <button id="start-btn" class="w-full bg-primary hover:bg-primary-dark text-white rounded-xl py-4 font-semibold shadow-lg shadow-primary/20">
+          에이전트 시작하기
+        </button>
+        <section id="candidate-selector" class="hidden bg-gradient-to-b from-blue-50/40 to-white border border-blue-100 rounded-2xl p-4 space-y-3 shadow-sm">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-sm flex items-center gap-1"><span class="material-icons-round text-primary text-base">smart_toy</span>품목 후보 선택</h3>
+            <button id="candidate-close" type="button" class="text-xs text-slate-500">닫기</button>
+          </div>
+          <p class="text-xs text-slate-500">매칭이 애매한 품목의 후보를 확인하고 1개를 선택해주세요.</p>
+          <div id="candidate-list" class="space-y-3"></div>
+          <div class="grid grid-cols-2 gap-2">
+            <button id="candidate-apply" type="button" class="rounded-lg bg-primary text-white py-2 text-sm font-semibold shadow-lg shadow-primary/20">적용 후 계속</button>
+            <button id="candidate-cancel" type="button" class="rounded-lg border border-slate-300 bg-white py-2 text-sm font-semibold">취소</button>
+          </div>
+        </section>
+      </section>
+
+      <section id="loading-screen" class="hidden space-y-4">
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+          <h2 class="text-xl font-bold text-primary mb-1">최적의 경로 분석 중</h2>
+          <p class="text-sm text-slate-500">`analyzing_best_options` 참조</p>
+          <div class="mt-4 space-y-4 text-sm">
+            <div class="flex items-center gap-2"><span class="material-icons-round text-primary">check_circle</span>1. 장바구니 구조화</div>
+            <div class="flex items-center gap-2"><span class="material-icons-round text-primary animate-pulse">travel_explore</span>2. 온/오프라인 후보 수집</div>
+            <div class="flex items-center gap-2 text-slate-400"><span class="material-icons-round">cloud</span>3. 이동 및 날씨 분석</div>
+            <div class="flex items-center gap-2 text-slate-400"><span class="material-icons-round">emoji_events</span>4. 최적의 플랜 랭킹</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="result-screen" class="hidden space-y-4">
+        <div class="flex items-center justify-between gap-2">
+          <h2 class="text-xl font-bold">2) 오프라인 추천 플랜</h2>
+          <button id="restart-from-result" type="button" class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50">
+            처음으로
+          </button>
+        </div>
+        <p class="text-xs text-slate-500">`offline_shopping_plans` 참조</p>
+        <div id="degraded-banner" class="hidden bg-amber-50 border border-amber-200 text-amber-700 text-sm rounded-xl px-3 py-2"></div>
+        <div id="plans-list" class="space-y-4"></div>
+      </section>
+
+      <section id="detail-screen" class="hidden space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-bold">3) 상세 품목 및 가격 확인</h2>
+            <p class="text-xs text-slate-500">`상세_품목_및_가격_확인`, `상품별_상세_정보_및_대체_추천` 참조</p>
+          </div>
+          <button id="back-to-results" class="text-sm text-primary font-semibold">목록으로</button>
+        </div>
+
+        <div id="detail-summary" class="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-2xl p-4"></div>
+
+        <div id="partial-box" class="hidden bg-white border border-slate-200 rounded-2xl p-4">
+          <h3 class="font-bold mb-2">일부 품목 미검색 (`partial_match_results`)</h3>
+          <div id="missing-list" class="space-y-2"></div>
+        </div>
+
+        <div>
+          <h3 class="font-bold mb-2">매칭 품목</h3>
+          <div id="matched-list" class="space-y-2"></div>
+        </div>
+
+        <div>
+          <h3 class="font-bold mb-2">AI 대체 추천</h3>
+          <div id="alternative-list" class="space-y-2"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-100 p-4">
+      <button id="confirm-btn" class="hidden w-full bg-primary text-white py-3.5 rounded-xl font-semibold">이 플랜 선택하기</button>
+      <div id="confirm-result" class="hidden text-xs text-slate-600 mt-2"></div>
+    </footer>
+  </div>
+
+  <script src="./ui-demo.js"></script>
+</body>
+</html>

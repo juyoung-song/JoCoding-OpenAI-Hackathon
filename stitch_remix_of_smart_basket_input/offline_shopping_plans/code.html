@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>오프라인 추천 플랜 - 똑장</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "primary-dark": "#0b5db0",
+                        "background-light": "#ffffff",
+                        "card-border": "#e2e8f0",
+                        "text-main": "#1e293b",
+                        "text-sub": "#64748b",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Sans KR", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-50 text-text-main font-display h-screen flex justify-center overflow-hidden">
+<div class="w-full max-w-md h-full flex flex-col relative bg-white shadow-2xl overflow-hidden border-x border-gray-100">
+<header class="flex-none px-6 pt-12 pb-4 flex justify-between items-center bg-white z-20 border-b border-gray-50">
+<div>
+<p class="text-xs font-medium text-primary uppercase tracking-wider mb-1">똑똑한 장보기 에이전트</p>
+<h1 class="text-2xl font-bold text-slate-900">오프라인 추천 플랜</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-100 transition-colors">
+<span class="material-icons text-slate-600">tune</span>
+</button>
+</header>
+<main class="flex-1 overflow-y-auto px-4 pb-24 space-y-6 bg-gray-50/50">
+<div class="px-2 mt-4 mb-2">
+<p class="text-sm text-slate-500 leading-relaxed">
+                장바구니 내용을 기반으로 3개의 최적 경로를 찾았습니다.
+                <span class="text-amber-600 font-medium block mt-1"><span class="material-icons text-sm align-middle mr-1">warning</span>2시간 뒤 비 예보가 있습니다.</span>
+</p>
+</div>
+<div class="relative bg-white rounded-2xl p-5 shadow-lg border border-primary/20 overflow-hidden group hover:border-primary/50 transition-colors duration-300 ring-1 ring-primary/5">
+<div class="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-bl-xl rounded-tr-lg shadow-sm">
+                #1 최저가 추천
+            </div>
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center space-x-3">
+<div class="w-12 h-12 rounded-lg bg-gray-50 p-1 flex items-center justify-center border border-gray-100">
+<img alt="Store Icon" class="w-full h-full object-cover rounded-md opacity-90" data-alt="Modern supermarket storefront icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpjhMRq1UeOr_cISto5XmLIt3MUIqKjiuKFa0ET7TM9TUDsdWgg2Eqd3zHKAL-8qQwh6evsrS-wiq8lQX0tP96c8M6mm6EkFYO9b6juKJXQ3wzhaws9QEwflVWT3LKnDoGIHAWedlt1uTJrkwkW7DmZr-AAeHpk20UIUEjbZympJwe9SG8wK-0u0Y0Gf5sg_RHXyM8NTIEDkjninYHglz63nvWKND49s3LKWPRR5P43mdIK6d1DY0rjhgdLnYlpuYyiol7SVA4Lzc"/>
+</div>
+<div>
+<h3 class="font-bold text-lg text-slate-900">이마트 강남점</h3>
+<div class="flex items-center text-xs text-slate-500 space-x-1">
+<span class="material-icons text-[14px] text-primary">location_on</span>
+<span>2.4 km 거리</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-end mb-5 border-b border-gray-100 pb-5">
+<div>
+<p class="text-sm text-slate-500 mb-1 font-medium">예상 총액</p>
+<p class="text-3xl font-bold text-primary tracking-tight">45,200원</p>
+</div>
+<div class="flex flex-col items-end space-y-1.5">
+<div class="flex items-center space-x-1 px-2.5 py-1 bg-slate-100 rounded text-xs font-medium text-slate-600">
+<span class="material-icons text-[14px]">directions_car</span>
+<span>이동 12분</span>
+</div>
+<div class="flex items-center space-x-1 px-2.5 py-1 bg-red-50 rounded text-xs font-medium text-red-600 border border-red-100">
+<span class="material-icons text-[14px]">water_drop</span>
+<span>날씨 주의: 비</span>
+</div>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-xs mb-1.5">
+<span class="font-medium text-slate-700">커버리지</span>
+<span class="text-primary font-bold">12/12 발견</span>
+</div>
+<div class="w-full bg-gray-100 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full shadow-[0_0_10px_rgba(19,127,236,0.3)]" style="width: 100%"></div>
+</div>
+</div>
+<div class="bg-blue-50/50 rounded-xl p-3.5 border border-blue-100">
+<div class="flex items-center space-x-2 mb-1.5">
+<span class="material-icons text-primary text-sm">psychology</span>
+<p class="text-xs font-bold text-slate-800">왜 이 추천이 1등인가?</p>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed">
+                    전체 장바구니 기준 최저가입니다. 지하 주차장이 있어 비를 피할 수 있으며, 모든 품목 재고가 있습니다.
+                </p>
+</div>
+<button class="w-full mt-4 bg-primary hover:bg-primary-dark text-white font-medium py-3.5 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center space-x-2 active:scale-[0.98]">
+<span>이 플랜 선택하기</span>
+<span class="material-icons text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="relative bg-white rounded-2xl p-5 shadow-sm border border-gray-200">
+<div class="absolute top-0 right-0 bg-slate-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-lg">
+                #2 최단 시간
+            </div>
+<div class="flex justify-between items-start mb-2">
+<div class="flex-1">
+<h3 class="font-bold text-lg text-slate-900">롯데마트 서초점</h3>
+<p class="text-2xl font-bold text-slate-700 mt-1 tracking-tight">48,900원</p>
+</div>
+<div class="w-10 h-10 rounded-lg bg-gray-50 p-1 flex items-center justify-center border border-gray-100 shrink-0">
+<img alt="Store Icon" class="w-full h-full object-cover rounded-md opacity-80" data-alt="Grocery aisle abstract icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-IYN_kMO9HwncOa1ebvcl44qljcMRoYh1Q8KlZ97ngjosyZ-nXCRPYUB8cQNXZO41uJQ9rxoGq0qT29095wbfIY3BoOadVFJx0N1DLsWV4a_r6XljN2fVjA-VKJW6bZsj7UgxvNw8hZSlDRNrawtP4RG2fIYPmiTgpcHzIcI7YM4zh53XPyinh4fO-o10uajGbjyBTrm-qdIhSeza6U1VqT6Ok_qZv487ILcvd8qujP9tupIc71MgossGHXhuPaOu3xG2yWzY4Rs"/>
+</div>
+</div>
+<div class="flex space-x-3 text-xs mb-4">
+<div class="flex items-center space-x-1 text-slate-500 bg-slate-50 px-2 py-0.5 rounded">
+<span class="material-icons text-[14px]">directions_walk</span>
+<span>도보 5분</span>
+</div>
+<div class="flex items-center space-x-1 text-slate-500 bg-slate-50 px-2 py-0.5 rounded">
+<span class="material-icons text-[14px]">cloud</span>
+<span>흐림</span>
+</div>
+</div>
+<div class="mb-3">
+<div class="flex justify-between text-xs mb-1.5">
+<span class="font-medium text-slate-700">커버리지</span>
+<span class="text-amber-500 font-bold">10/12 발견</span>
+</div>
+<div class="w-full bg-gray-100 rounded-full h-1.5">
+<div class="bg-amber-500 h-1.5 rounded-full" style="width: 83%"></div>
+</div>
+<p class="text-[10px] text-red-400 mt-1.5 text-right font-medium">미발견: 우유, 아보카도</p>
+</div>
+<div class="border-t border-gray-100 pt-3 mt-3">
+<p class="text-xs text-slate-500 leading-relaxed">
+<span class="font-bold text-primary">분석:</span> 가장 빠르게 다녀올 수 있지만 가격이 조금 더 높습니다. 미발견 품목은 집 근처 편의점 이용시 (+3,000원 예상).
+                </p>
+</div>
+</div>
+<div class="relative bg-white rounded-2xl p-5 shadow-sm border border-gray-200 opacity-95">
+<div class="absolute top-0 right-0 bg-gray-200 text-slate-600 text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-lg">
+                #3 친환경/자전거
+            </div>
+<div class="flex justify-between items-start mb-2">
+<div class="flex-1">
+<h3 class="font-bold text-lg text-slate-900">홈플러스 스페셜</h3>
+<p class="text-2xl font-bold text-slate-700 mt-1 tracking-tight">46,500원</p>
+</div>
+<div class="w-10 h-10 rounded-lg bg-gray-50 p-1 flex items-center justify-center border border-gray-100 shrink-0">
+<img alt="Store Icon" class="w-full h-full object-cover rounded-md opacity-80" data-alt="Market basket icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4YMH6LYg3praTI51xABiYmXBzraBVky2FXZqBbQ_HvOBJIDpNNdne5B1AaKYcsJic_5RNeaiYzeF0iyW45YB11VLcTDfmySBx7DfkYItMq3A-aojqFq3t0enJEGE6ijFvfMENqWuJKGdgVf6LKO3QclGVQ1CNPC1QjNGCwPrN-AXkuqNa0m8W9OxpQnx63L5n-aHbeZ_miDyz3rWnwkWYvInxFUBtR9hihfv_au8uPyCgoz9dAiYSjg-PsUYX39IcrGu8e0nRYAM"/>
+</div>
+</div>
+<div class="flex space-x-3 text-xs mb-4">
+<div class="flex items-center space-x-1 text-slate-500 bg-slate-50 px-2 py-0.5 rounded">
+<span class="material-icons text-[14px]">pedal_bike</span>
+<span>자전거 18분</span>
+</div>
+<div class="flex items-center space-x-1 text-slate-500 bg-slate-50 px-2 py-0.5 rounded">
+<span class="material-icons text-[14px]">wb_sunny</span>
+<span>맑음</span>
+</div>
+</div>
+<div class="mb-3">
+<div class="flex justify-between text-xs mb-1.5">
+<span class="font-medium text-slate-700">커버리지</span>
+<span class="text-primary font-bold">12/12 발견</span>
+</div>
+<div class="w-full bg-gray-100 rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<div class="border-t border-gray-100 pt-3 mt-3">
+<p class="text-xs text-slate-500 leading-relaxed">
+<span class="font-bold text-primary">분석:</span> 대용량 구매에 적합합니다. 자전거 도로를 이용해 교통 체증을 피할 수 있습니다.
+                </p>
+</div>
+</div>
+</main>
+<div class="flex-none bg-white border-t border-gray-100 px-6 py-4 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<div class="flex items-center justify-between text-[11px] text-slate-400 font-medium tracking-wide">
+<div class="flex items-center space-x-1.5">
+<span class="material-icons text-[14px] text-slate-300">verified_user</span>
+<span>출처: 조사 데이터</span>
+</div>
+<div>
+                업데이트: 2시간 전
+            </div>
+</div>
+</div>
+<div class="absolute bottom-20 right-4 z-30">
+<button class="bg-slate-800 text-white w-12 h-12 rounded-full shadow-xl shadow-slate-900/20 flex items-center justify-center hover:scale-105 active:scale-95 transition-transform">
+<span class="material-icons">map</span>
+</button>
+</div>
+</div>
+
+</body></html>

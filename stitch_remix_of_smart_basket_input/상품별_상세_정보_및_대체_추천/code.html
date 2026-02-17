@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>장보기 상세 내역 - 똑장</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+KR:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "Noto Sans KR", "sans-serif"],
+                        "sans": ["Inter", "Noto Sans KR", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 min-h-screen flex justify-center">
+<!-- Mobile Container -->
+<div class="w-full max-w-md bg-white dark:bg-slate-900 min-h-screen shadow-2xl relative flex flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 px-4 py-3 flex items-center justify-between">
+<button class="p-2 -ml-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-icons-round text-2xl">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold text-slate-900 dark:text-white">장보기 상세 내역</h1>
+<button class="p-2 -mr-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-icons-round text-2xl">more_horiz</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto pb-24 hide-scrollbar">
+<!-- Summary Card -->
+<div class="p-4">
+<div class="bg-gradient-to-br from-primary to-blue-600 rounded-xl p-5 text-white shadow-lg relative overflow-hidden">
+<!-- Decorative Circle -->
+<div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="text-blue-100 text-sm font-medium mb-1">이번 장보기 예상 금액</p>
+<h2 class="text-3xl font-bold">45,200원</h2>
+</div>
+<div class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold">
+                                총 12개 품목
+                            </div>
+</div>
+<div class="flex items-center gap-2 bg-white/10 rounded-lg p-3 border border-white/10">
+<span class="material-icons-round text-green-300 text-xl">savings</span>
+<div class="text-sm">
+<span class="font-bold text-green-300">1,500원 절약</span>
+<span class="text-blue-100 opacity-90"> · 대체 상품 선택으로 아꼈어요!</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- List Section -->
+<div class="px-4 space-y-4">
+<!-- Section Header -->
+<div class="flex items-center justify-between pt-2 pb-1">
+<h3 class="font-bold text-slate-800 dark:text-slate-100 text-lg">담긴 상품 리스트</h3>
+<div class="flex items-center text-xs text-primary font-medium cursor-pointer">
+<span>전체보기</span>
+<span class="material-icons-round text-sm">chevron_right</span>
+</div>
+</div>
+<!-- Item 1: Alternative Recommendation (Hero Component) -->
+<div class="bg-white dark:bg-slate-800 rounded-xl border-2 border-primary/20 shadow-sm overflow-hidden relative">
+<!-- Badge -->
+<div class="absolute top-0 left-0 bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-br-lg z-10 flex items-center gap-1">
+<span class="material-icons-round text-[12px]">smart_toy</span>
+                        AI 대체 추천
+                    </div>
+<div class="p-4 pt-8">
+<!-- Product Info -->
+<div class="flex gap-4">
+<div class="w-20 h-20 flex-shrink-0 bg-slate-100 dark:bg-slate-700 rounded-lg overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Package of organic tofu" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO9yRzDnL6nWWw-yf7n2asRj-3ESKdJE4vuET6ZLtRis2oO05uyynm1dxSV1eexDzCLUH2Yh8up7hBW1NRAzrURGs6CefjeHJIIswwpJPHYbFgsoAsR6MFL7LBaKZ7bnE4ggtkz2ZKolW4xnnD2_4vcpw0xZ9MQL3z_2uecmJvpbZ-VXUwBVFfmYfs1jKvBp2qsds2qNA7xveEAGW6lUr_Z3cApMc_mWlMHD44Ysb0UmAqSp9A6qx4TbX2Je8XxmBBGqPzQ42lDlE"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-0.5">풀무원</p>
+<h4 class="font-bold text-slate-900 dark:text-white leading-tight">국산콩 유기농 두부 300g</h4>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-icons-round">swap_horiz</span>
+</button>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-lg font-bold text-primary">3,000원</span>
+<span class="text-xs text-slate-400 line-through">3,500원</span>
+</div>
+</div>
+</div>
+<!-- Comparison Reason -->
+<div class="mt-4 bg-primary/5 dark:bg-primary/10 rounded-lg p-3 border border-primary/10">
+<div class="flex items-center justify-between text-xs mb-2">
+<span class="text-slate-500 dark:text-slate-400">요청 상품 (품절)</span>
+<span class="text-slate-500 dark:text-slate-400 line-through">브랜드A 두부 3,500원</span>
+</div>
+<div class="h-px bg-primary/10 w-full my-1"></div>
+<div class="flex items-center justify-between text-sm mt-2 font-medium">
+<span class="text-primary flex items-center gap-1">
+<span class="material-icons-round text-sm">check_circle</span>
+                                    성분 유사 · 가격 저렴
+                                </span>
+<span class="text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30 px-2 py-0.5 rounded text-xs font-bold">
+                                    500원 절약
+                                </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2: Standard Item -->
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-3 flex gap-4 items-center shadow-sm">
+<div class="w-16 h-16 flex-shrink-0 bg-slate-50 dark:bg-slate-700 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Carton of fresh milk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVHb9-jYd27kTd4uy8EB_xIvTmHadTuDB9P9lYzhToM2Iw4crrJSB29tI6NVhjXfWCSjUQcMHZ5bm-muJFxfePPG-a7T_S_2GV1xFBlZBm9u_rfYmFenZsb0R3cD0DpRSlEehp6-erVnQ4EoiRelV_i0PSTUMaa19J1ixEHRnBDKJY6xeBpEU22-EvqCYv_-AyUCXJBErjAq0VxE4GUGid-TUYV9-mBgCwOpBInM-7pgPFsEzn1C1Rp5qablGNmyB-hHcTrUHVQXc"/>
+</div>
+<div class="flex-1">
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-0.5">서울우유</p>
+<h4 class="font-bold text-slate-900 dark:text-white text-sm">나 100% 우유 1L</h4>
+<div class="mt-1 font-bold text-slate-900 dark:text-white">2,800원</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs px-2 py-1 rounded font-medium">수량 1</span>
+</div>
+</div>
+<!-- Item 3: Alternative Recommendation (Price Higher) -->
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-primary/20 shadow-sm overflow-hidden relative">
+<div class="absolute top-0 left-0 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 text-[10px] font-bold px-2 py-0.5 rounded-br-lg z-10 border-b border-r border-slate-200 dark:border-slate-600">
+                        재고 없음 대체
+                    </div>
+<div class="p-3 pt-6 flex gap-4">
+<div class="w-16 h-16 flex-shrink-0 bg-slate-50 dark:bg-slate-700 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Green lettuce bunch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj40bNxQTraWdXox2qA96YAxOO46nzIFhIrOJ23HYP7Iw6xFPWnLpTPp7OPgJLst4E5PeMyxScN300UlL5JzGJgI3SF6aFZv5HXdbQSTPmcPSa14QwhE_BbzRMzAAEO3WxORMSpjz3sCfSQ7yAPMlOBi5o_OFrsUleciMekVIL3zDYcgj_5QpdHWriX2CmbqTwb6GaiTnjp5S6Do3JWNzrxE3xOev6Iz3LE82tjcrhwW080cXotOsAmhieRY9j1VEFwxDexwq6Pkc"/>
+</div>
+<div class="flex-1">
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-0.5">신선팜</p>
+<h4 class="font-bold text-slate-900 dark:text-white text-sm">유기농 양상추 1통</h4>
+<div class="mt-1 flex items-center gap-2">
+<span class="font-bold text-slate-900 dark:text-white">3,200원</span>
+<span class="text-xs text-red-500 bg-red-50 dark:bg-red-900/20 px-1.5 rounded font-medium">+200원</span>
+</div>
+</div>
+<button class="text-slate-300 hover:text-primary self-center">
+<span class="material-icons-round">info</span>
+</button>
+</div>
+</div>
+<!-- Item 4: Standard Item -->
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-3 flex gap-4 items-center shadow-sm">
+<div class="w-16 h-16 flex-shrink-0 bg-slate-50 dark:bg-slate-700 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Pack of raw eggs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBliih4opNoJuFcwa8w68MNfgaIMeIEDV6LeDboMA8grcZd5x2p9YvAzXOALOgF3AH4zsue0Svq1zMBsgf52Mo2x_Xfr886gI2HhMpfnjtxhCkPn6nKkBpCxMqzWlq42fyidDpweEyumRnctrMrbPQh47qVEZV-ncqkWrmAygDsoXYdKnStyrOIDqzq0pM6M8uCjQB2wwjCPgHe7PbILs5YdABTFdcTKN8j-3LDee-UEI-U3UO9AfRsieapafm9nNYUGRzUaBpIrp4"/>
+</div>
+<div class="flex-1">
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-0.5">자연방사</p>
+<h4 class="font-bold text-slate-900 dark:text-white text-sm">동물복지 유정란 15구</h4>
+<div class="mt-1 font-bold text-slate-900 dark:text-white">8,900원</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs px-2 py-1 rounded font-medium">수량 1</span>
+</div>
+</div>
+<!-- Item 5: Standard Item -->
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-3 flex gap-4 items-center shadow-sm">
+<div class="w-16 h-16 flex-shrink-0 bg-slate-50 dark:bg-slate-700 rounded-lg overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Red ripe apple" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsPCkqKubtSM2_Cox_0IxFuSWTMKLDs1RX5JKMJ2WCHkeQZyBlD2EmgZqR7jeiBONRJalxClUGzwewEzgWEiJzsT8CI2FjqRBTQTXaXKXwBSaiwBAC_Jkq1fmZYUnk6k3l9Bgtv0SEEHY_ngi5xa5RzLJSEOkS_WH_aKnceylaJ_1Tq5e4QygaUgaIIs5vbOL9NfkpRm_xN3WjSZuqt8hvoD7cUvSEalzyT699LJwIhXAZpj2xc4wNwht-DndFAqnLyQ6tKf9LcvQ"/>
+</div>
+<div class="flex-1">
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-0.5">청송</p>
+<h4 class="font-bold text-slate-900 dark:text-white text-sm">꿀사과 1.5kg (봉)</h4>
+<div class="mt-1 font-bold text-slate-900 dark:text-white">12,500원</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs px-2 py-1 rounded font-medium">수량 1</span>
+</div>
+</div>
+<!-- Warning Note -->
+<div class="flex items-start gap-2 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg text-xs text-slate-500 dark:text-slate-400">
+<span class="material-icons-round text-sm mt-0.5">info</span>
+<p>매장 상황에 따라 실제 가격이나 재고는 달라질 수 있습니다. 대체 상품은 유사한 성분과 가격대를 우선으로 추천되었습니다.</p>
+</div>
+</div>
+</main>
+<!-- Bottom Action Bar -->
+<div class="absolute bottom-0 w-full bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 p-4 pb-8 z-40 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<button class="w-full bg-primary hover:bg-blue-600 active:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center gap-2">
+<span>이대로 구매하기</span>
+<span class="material-icons-round text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>

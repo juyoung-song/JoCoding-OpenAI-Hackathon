@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>검색 결과 부족 - 똑장</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#3B82F6", 
+              "background-light": "#ffffff",
+              "surface-light": "#f8f9fa",
+              "text-main": "#111827",
+              "text-sub": "#6B7280",
+              "warning": "#F59E0B",
+              "success": "#10B981",
+              "border-color": "#E5E7EB"
+            },
+            fontFamily: {
+              "display": ["Noto Sans KR", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem", 
+              "lg": "0.5rem", 
+              "xl": "0.75rem", 
+              "2xl": "1rem", 
+              "3xl": "1.5rem",
+              "full": "9999px"
+            },
+            boxShadow: {
+                'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-50 font-display text-text-main min-h-screen flex justify-center items-center">
+<div class="w-full max-w-md bg-white h-[100dvh] flex flex-col relative overflow-hidden shadow-2xl">
+<div class="px-6 py-3 flex justify-between items-center z-10 bg-white">
+<span class="text-sm font-medium">9:41</span>
+<div class="flex space-x-2">
+<span class="material-icons-round text-sm">signal_cellular_alt</span>
+<span class="material-icons-round text-sm">wifi</span>
+<span class="material-icons-round text-sm">battery_full</span>
+</div>
+</div>
+<header class="px-6 py-3 flex items-center justify-between z-10 bg-white border-b border-gray-50">
+<button class="p-2 -ml-2 rounded-full hover:bg-gray-100 transition-colors">
+<span class="material-icons-round text-2xl text-gray-800">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold text-gray-900">결과 요약</h1>
+<button class="p-2 -mr-2 rounded-full hover:bg-gray-100 transition-colors text-primary">
+<span class="text-sm font-medium">편집</span>
+</button>
+</header>
+<main class="flex-1 overflow-y-auto hide-scrollbar pb-24 bg-white">
+<div class="pt-6 pb-8 px-6 text-center">
+<div class="relative w-36 h-36 mx-auto mb-5 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+<circle class="text-gray-100" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary" cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-dasharray="283" stroke-dashoffset="94" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-4xl font-bold tracking-tight text-gray-900">8<span class="text-xl text-gray-400 font-medium">/12</span></span>
+<span class="text-xs text-primary font-medium mt-1 bg-blue-50 px-2 py-0.5 rounded-full">발견됨</span>
+</div>
+</div>
+<h2 class="text-xl font-bold mb-2 text-gray-900">일부 품목 미검색</h2>
+<p class="text-sm text-gray-500 leading-relaxed max-w-[90%] mx-auto">
+<span class="text-gray-900 font-medium">이마트 마포점</span>에서 8개 상품을 찾았습니다.<br/>반경 2km 내에 4개 품목의 재고가 없습니다.
+            </p>
+</div>
+<div class="mb-8 border-t border-gray-100 pt-6">
+<div class="flex items-center justify-between mb-4 px-6">
+<h3 class="text-sm font-bold text-gray-900">구매 가능 (8)</h3>
+<span class="text-xs text-gray-400 hover:text-primary cursor-pointer">전체보기</span>
+</div>
+<div class="flex space-x-4 overflow-x-auto hide-scrollbar pb-2 px-6">
+<div class="flex-shrink-0 w-[4.5rem] group">
+<div class="w-[4.5rem] h-[4.5rem] rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center mb-2 overflow-hidden relative shadow-sm">
+<img alt="Carton of fresh milk" class="w-full h-full object-cover p-1 group-hover:scale-110 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOQyDhxavdz3erASd7ftpzHpTXIQXVUGP6j-a1tI4lvi0cEh7_7wrZJoz-6xMIeluw98nHTzH07xmAUA6pXNHmMyrk7E0XRedo65zHuhOxB7smyMMIu9ejsT9-QesMcjsD5H8ybVxo92MxLoEwEhc0y5SUopfA2NwozRGIhM7gzxss6JNFZ31z1R25Rhgf_bR87EObJUrBzeYeu32J0zv5EVER5QtyWeDc3rU5k9Elq88zkN3VMz-DjfhP2TuqaH8YQON3NTD5APE"/>
+<div class="absolute bottom-0 right-0 w-5 h-5 bg-white rounded-tl-lg flex items-center justify-center">
+<div class="w-4 h-4 bg-success rounded-full flex items-center justify-center">
+<span class="material-icons-round text-white text-[10px]">check</span>
+</div>
+</div>
+</div>
+<p class="text-[11px] font-medium text-center text-gray-600 truncate">서울우유</p>
+</div>
+<div class="flex-shrink-0 w-[4.5rem] group">
+<div class="w-[4.5rem] h-[4.5rem] rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center mb-2 overflow-hidden relative shadow-sm">
+<img alt="Carton of eggs" class="w-full h-full object-cover p-1 group-hover:scale-110 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRNEwEiyrEVp3OnldPJyjIevvie-yVsBZaby7VwaJXKF-jWSOEbX90CDjHoXHPcLdBrwJXgS2eI3WoM5SCnUexy7CwnJ6LTGb9m_ViBlidtQfmdOY5WQIJZX2GiP6TsdLbXi3JCfvX8d70mdIgsiJfSU_4TuUzRB1cF7LnjhKe9w3XpPqRg1WiC8dBXEOXq-SihVA493BCxJBsGbCe4p3TlbinQwWf1QrsKM1AsLNnUOrf5S6Xl-MounCHr3lxCVyocHMbD-YrKrc"/>
+<div class="absolute bottom-0 right-0 w-5 h-5 bg-white rounded-tl-lg flex items-center justify-center">
+<div class="w-4 h-4 bg-success rounded-full flex items-center justify-center">
+<span class="material-icons-round text-white text-[10px]">check</span>
+</div>
+</div>
+</div>
+<p class="text-[11px] font-medium text-center text-gray-600 truncate">신선란</p>
+</div>
+<div class="flex-shrink-0 w-[4.5rem] group">
+<div class="w-[4.5rem] h-[4.5rem] rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center mb-2 overflow-hidden relative shadow-sm">
+<img alt="Fresh pasta" class="w-full h-full object-cover p-1 group-hover:scale-110 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBxkfd9AeBTmH7khF767Vv64lyTPkuniRJ1M6POtwFFyx7UUd8Gt9Jz8ODlR8tARBTsLaRHbgplGlw825rIrrc1tROrS6RMruO8EFTOJ-tb2BR40LbXlhilHmwwjg1VmuADtnPpzbmFegLGDhmwqh9474OcY8jVVKnkxeu3WSE_A8qNlaWiU_dVjYWCvyF8PqAly3hXQ13Z7JyOElgpurIRYZppRXtc07yK-Elvj1P6gub9OaXENm88TYQdvvfEWhmtbMuHURgrgg"/>
+<div class="absolute bottom-0 right-0 w-5 h-5 bg-white rounded-tl-lg flex items-center justify-center">
+<div class="w-4 h-4 bg-success rounded-full flex items-center justify-center">
+<span class="material-icons-round text-white text-[10px]">check</span>
+</div>
+</div>
+</div>
+<p class="text-[11px] font-medium text-center text-gray-600 truncate">파스타</p>
+</div>
+<div class="flex-shrink-0 w-[4.5rem] group">
+<div class="w-[4.5rem] h-[4.5rem] rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center mb-2 overflow-hidden relative shadow-sm">
+<img alt="Avocado" class="w-full h-full object-cover p-1 group-hover:scale-110 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0niKsJShFZDRpdWZULqfHNGXxcNwWhRP8LWqIxnL-ZpRLHjx2BXI-7-zxHo3YBFtWqwQhk7loOVBQ91jKydOzaEuIHkS1pylIKT0z762k_qYE065Z0T9znthi0EllJajZ5xNEB1IUtRrvwtYa5hjR97ZeJ-RAAy4H2JUoA5Ob_y7Ykxh4-yM-J_Z02BOPkbV9SW9JQodQBDuDzZjuuOmhV7Ow6Cw6slkWX4cmPAx_ZaiWQv9PG358wl6-eQNs12sCIpiHVXWuEVk"/>
+<div class="absolute bottom-0 right-0 w-5 h-5 bg-white rounded-tl-lg flex items-center justify-center">
+<div class="w-4 h-4 bg-success rounded-full flex items-center justify-center">
+<span class="material-icons-round text-white text-[10px]">check</span>
+</div>
+</div>
+</div>
+<p class="text-[11px] font-medium text-center text-gray-600 truncate">아보카도</p>
+</div>
+</div>
+</div>
+<div class="mb-8 px-6">
+<h3 class="text-sm font-bold text-warning mb-3 flex items-center">
+<span class="material-icons-round text-sm mr-1.5 bg-warning/10 p-1 rounded-full">priority_high</span>
+                미검색 품목 (4)
+            </h3>
+<div class="bg-white rounded-2xl border border-gray-100 shadow-soft divide-y divide-gray-50">
+<div class="p-4 flex items-center">
+<div class="w-12 h-12 rounded-xl bg-gray-50 flex-shrink-0 flex items-center justify-center overflow-hidden">
+<img alt="Cereal box" class="w-full h-full object-cover opacity-60 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC63ieP5j69b26gI4wBKgxO_ACJH21fFo0HOk8DOU0TzQDe7OoseJETKxqzd6YKSJ19mpblvQAeV_7XWaEL1MajLS8YpUGQupZ3yLBePZwDJhjggW2dydYpibrWKDCUGBSbJxjD-zsH8Uhx0eyXLCmyqR8Xvya6i1-h5AlWx_kylA8E_5pgZJ4DHjpRKhMW0TwHCuJlXImlv1sSvX9JF9uS7expVMaC3bAT3yMKc-yzwCeGN9W4IpwUUxy-Rtd20BslANvoTlRvZfk"/>
+</div>
+<div class="ml-3 flex-1">
+<p class="text-sm font-semibold text-gray-800">스페셜 K 레드베리</p>
+<p class="text-xs text-gray-500 mt-0.5">켈로그 • 500g</p>
+</div>
+<span class="text-[10px] font-bold px-2 py-1 bg-gray-100 text-gray-500 rounded text-center">
+                        재고 없음
+                    </span>
+</div>
+<div class="p-4 flex items-center">
+<div class="w-12 h-12 rounded-xl bg-gray-50 flex-shrink-0 flex items-center justify-center overflow-hidden">
+<img alt="Dragon fruit" class="w-full h-full object-cover opacity-60 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrj9kBySSBWLFTPrGdJLdV-0bO1K9JyYGVSy_Az3Bu09ZYBkH1pL-hMu52y12RFTJJkE9jW6NRf4x-934iDk7KGRuASdapEK9VQdKuegB5qBvL3yFzLMNX55kNUEmmdGxWq76ArG4qqKurDL1pJVdJSCUkxUEa3pH9kqQKD1gamr8vkUmrNvSnm9jSFWx_cZWeMuilU-3Rmlww3TLD4F1FA17sbN9ZnIBGZYONoxeVeeRPjDhf68ReAWWa9rvhlw3Hst1_cBDdjy8"/>
+</div>
+<div class="ml-3 flex-1">
+<p class="text-sm font-semibold text-gray-800">용과 (드래곤후르츠)</p>
+<p class="text-xs text-gray-500 mt-0.5">수입산 • 2입</p>
+</div>
+<span class="text-[10px] font-bold px-2 py-1 bg-gray-100 text-gray-500 rounded text-center">
+                        판매처 없음
+                    </span>
+</div>
+</div>
+</div>
+<div class="px-6 space-y-3 pb-8">
+<h3 class="text-sm font-bold text-gray-900 mb-2">추천 해결 방법</h3>
+<button class="w-full p-4 rounded-2xl bg-white border border-gray-200 flex items-center hover:border-primary/30 hover:shadow-md transition-all group text-left">
+<div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-icons-round">map</span>
+</div>
+<div class="ml-3 flex-1">
+<p class="text-sm font-bold text-gray-800">검색 범위 확장 (+5km)</p>
+<p class="text-xs text-gray-500 mt-0.5">롯데마트(4.2km)에서 발견</p>
+</div>
+<span class="material-icons-round text-gray-300">chevron_right</span>
+</button>
+<button class="w-full p-4 rounded-2xl bg-gradient-to-r from-blue-50 to-white border border-blue-100 flex items-center group text-left relative overflow-hidden shadow-sm">
+<div class="absolute top-0 right-0 p-1.5 bg-primary/10 rounded-bl-xl border-l border-b border-primary/10">
+<span class="text-[10px] font-bold text-primary px-1">추천</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white shadow-lg shadow-blue-200">
+<span class="material-icons-round">local_shipping</span>
+</div>
+<div class="ml-3 flex-1">
+<p class="text-sm font-bold text-gray-900">온라인으로 전환</p>
+<p class="text-xs text-gray-600 mt-0.5">내일 새벽 무료배송 가능</p>
+</div>
+<span class="material-icons-round text-primary">chevron_right</span>
+</button>
+<button class="w-full p-4 rounded-2xl bg-white border border-gray-200 flex items-center hover:border-primary/30 hover:shadow-md transition-all group text-left">
+<div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 group-hover:bg-gray-100 transition-colors">
+<span class="material-icons-round">swap_horiz</span>
+</div>
+<div class="ml-3 flex-1">
+<p class="text-sm font-bold text-gray-800">대체 품목 확인</p>
+<p class="text-xs text-gray-500 mt-0.5">유사 상품 12개 보기</p>
+</div>
+<span class="material-icons-round text-gray-300">chevron_right</span>
+</button>
+</div>
+</main>
+<nav class="absolute bottom-0 w-full bg-white border-t border-gray-100 px-6 py-2 pb-6 flex justify-between items-center z-20 text-gray-400">
+<button class="flex flex-col items-center hover:text-primary transition-colors">
+<span class="material-icons-round text-2xl">home</span>
+<span class="text-[10px] font-medium mt-1">홈</span>
+</button>
+<button class="flex flex-col items-center text-primary transition-colors">
+<span class="material-icons-round text-2xl">search</span>
+<span class="text-[10px] font-medium mt-1">검색</span>
+</button>
+<div class="relative -top-5">
+<div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-blue-300 text-white cursor-pointer hover:scale-105 transition-transform border-4 border-white">
+<span class="material-icons-round text-2xl">shopping_cart</span>
+</div>
+</div>
+<button class="flex flex-col items-center hover:text-primary transition-colors">
+<span class="material-icons-round text-2xl">favorite_border</span>
+<span class="text-[10px] font-medium mt-1">찜</span>
+</button>
+<button class="flex flex-col items-center hover:text-primary transition-colors">
+<span class="material-icons-round text-2xl">person_outline</span>
+<span class="text-[10px] font-medium mt-1">MY</span>
+</button>
+</nav>
+</div>
+
+</body></html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Smart Shopping - Analyzing Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3B82F6", 
+                        "primary-dark": "#2563EB",
+                        "background-light": "#ffffff",
+                        "background-subtle": "#f8fafc",
+                        "surface": "#ffffff",
+                        "text-main": "#1e293b",
+                        "text-sub": "#64748b",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "-apple-system", "BlinkMacSystemFont", "Malgun Gothic", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'flow': 'flow 2s linear infinite',
+                        'spin-slow': 'spin 3s linear infinite',
+                    },
+                    keyframes: {
+                        flow: {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '100%': { backgroundPosition: '100% 50%' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>.timeline-connector {
+            background: linear-gradient(to bottom, #3B82F6 50%, #e2e8f0 50%);
+            background-size: 100% 200%;
+            background-position: 0 10%;
+            transition: background-position 0.5s ease;
+        }.bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+        }.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#f1f5f9] font-display text-text-main min-h-screen flex items-center justify-center p-4 selection:bg-primary selection:text-white overflow-hidden relative">
+<div class="relative w-full max-w-sm h-[800px] max-h-[90vh] bg-background-light rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-200 flex flex-col z-10">
+<div class="absolute inset-0 bg-grid-pattern pointer-events-none z-0"></div>
+<div class="absolute top-[-10%] right-[-10%] w-80 h-80 bg-blue-100/50 rounded-full blur-[80px] pointer-events-none"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-60 h-60 bg-indigo-50/80 rounded-full blur-[60px] pointer-events-none"></div>
+<div class="h-12 w-full flex justify-between items-center px-6 pt-2 z-20">
+<span class="text-xs font-bold text-slate-900">9:41</span>
+<div class="flex gap-1.5">
+<div class="w-4 h-4 rounded-full bg-slate-900"></div>
+<div class="w-4 h-4 rounded-full bg-slate-900"></div>
+</div>
+</div>
+<div class="px-6 pt-6 pb-4 z-20 bg-background-light/80 backdrop-blur-md sticky top-0 border-b border-slate-50">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center border border-blue-100">
+<span class="material-icons-round text-primary text-sm animate-spin-slow">smart_toy</span>
+</div>
+<span class="text-xs font-bold text-primary uppercase tracking-wider">똑똑한 장보기 (똑장)</span>
+</div>
+<h1 class="text-2xl font-bold text-slate-900 tracking-tight">최적의 경로 분석 중</h1>
+<p class="text-sm text-slate-500 mt-1">12개 매장 및 45개 상품 비교 중</p>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar px-6 py-6 relative">
+<div class="absolute left-[39px] top-8 bottom-10 w-0.5 bg-slate-100 z-0">
+<div class="absolute top-0 left-0 w-full h-[55%] bg-gradient-to-b from-blue-400 via-primary to-transparent"></div>
+</div>
+<div class="relative flex gap-4 mb-10 group">
+<div class="flex-shrink-0 z-10">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-md border border-slate-100 ring-2 ring-blue-50">
+<span class="material-icons-round text-primary text-base">check_circle</span>
+</div>
+</div>
+<div class="flex flex-col pt-1">
+<h3 class="text-base font-bold text-slate-800">1. 장바구니 구조화</h3>
+<p class="text-xs text-slate-500 mt-1">12개 품목을 3개 카테고리로 정리 완료.</p>
+</div>
+</div>
+<div class="relative flex gap-4 mb-10">
+<div class="flex-shrink-0 z-10">
+<div class="relative">
+<div class="absolute inset-0 rounded-full bg-blue-100 animate-ping opacity-75"></div>
+<div class="relative w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-blue-200 ring-4 ring-white">
+<span class="material-icons-round text-white text-sm animate-pulse">travel_explore</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col pt-1 w-full">
+<div class="flex justify-between items-center mb-2">
+<h3 class="text-base font-bold text-primary">2. 온/오프라인 후보 수집</h3>
+<span class="text-[10px] font-bold bg-blue-50 text-primary px-2 py-0.5 rounded-full border border-blue-100">분석 중</span>
+</div>
+<div class="bg-white border border-slate-100 shadow-sm rounded-xl p-3.5 w-full">
+<p class="text-xs font-medium text-slate-400 mb-2.5 font-mono">쿠팡, 이마트, 홈플러스 스캔 중...</p>
+<div class="space-y-2.5">
+<div class="flex items-center gap-2.5">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+</span>
+<span class="text-xs text-slate-600 font-medium">온라인: 대용량 특가 3건 발견</span>
+</div>
+<div class="flex items-center gap-2.5">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
+</span>
+<span class="text-xs text-slate-600 font-medium">오프라인: 강남점 재고 확인 중...</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="relative flex gap-4 mb-10 opacity-50">
+<div class="flex-shrink-0 z-10">
+<div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center">
+<span class="material-icons-round text-slate-300 text-sm">cloud</span>
+</div>
+</div>
+<div class="flex flex-col pt-1">
+<h3 class="text-base font-semibold text-slate-400">3. 이동 및 날씨 분석</h3>
+<p class="text-xs text-slate-400 mt-1">위치 데이터 대기 중...</p>
+</div>
+</div>
+<div class="relative flex gap-4 opacity-40">
+<div class="flex-shrink-0 z-10">
+<div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center">
+<span class="material-icons-round text-slate-300 text-sm">emoji_events</span>
+</div>
+</div>
+<div class="flex flex-col pt-1">
+<h3 class="text-base font-semibold text-slate-400">4. 최적의 플랜 랭킹</h3>
+<p class="text-xs text-slate-400 mt-1">최종 의사결정 엔진.</p>
+</div>
+</div>
+</div>
+<div class="px-6 pb-8 pt-4 bg-background-light z-20 border-t border-slate-100">
+<div class="flex items-center justify-center gap-2 mb-4 bg-slate-50 py-2 rounded-lg border border-slate-100">
+<span class="material-icons-round text-slate-400 text-sm">timer</span>
+<p class="text-xs text-slate-500 font-medium">예상 남은 시간: <span class="text-primary font-mono font-bold">~5초</span></p>
+</div>
+<button class="w-full py-3.5 rounded-xl bg-white border border-slate-200 text-slate-600 shadow-sm hover:bg-slate-50 hover:shadow transition-all text-sm font-bold flex items-center justify-center gap-2 active:scale-[0.98]">
+<span>백그라운드로 최소화</span>
+<span class="material-icons-round text-sm">expand_more</span>
+</button>
+</div>
+</div>
+
+</body></html>

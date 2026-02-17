@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Voice Input Verification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Korean font 'Pretendard' fallback or similar for clean look -->
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "primary-light": "#e0f0ff",
+                        "primary-dark": "#0b5cb5",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Pretendard", "Inter", "sans-serif"],
+                        "sans": ["Pretendard", "Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'float': '0 8px 30px -4px rgba(19, 127, 236, 0.25)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for clean look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Simulating iOS safe area */
+        .safe-area-top {
+            padding-top: env(safe-area-inset-top, 20px);
+        }
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+
+        /* Dashed underline for uncertain words */
+        .uncertain-word {
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-decoration-color: #137fec;
+            text-underline-offset: 4px;
+            cursor: pointer;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 font-display antialiased h-screen w-full overflow-hidden flex flex-col items-center justify-center">
+<!-- Mobile Device Container -->
+<div class="w-full h-full max-w-md bg-white dark:bg-slate-900 shadow-2xl relative flex flex-col overflow-hidden">
+<!-- Header -->
+<header class="w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md z-20 sticky top-0 border-b border-slate-100 dark:border-slate-800 safe-area-top">
+<div class="h-14 px-4 flex items-center justify-between">
+<button class="p-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-300">
+<span class="material-icons-round">arrow_back_ios_new</span>
+</button>
+<h1 class="text-lg font-semibold text-slate-900 dark:text-white">음성 입력 확인</h1>
+<button class="p-2 rounded-full opacity-0 pointer-events-none">
+<span class="material-icons-round">more_horiz</span>
+</button>
+</div>
+</header>
+<!-- Main Content (Scrollable) -->
+<main class="flex-1 overflow-y-auto no-scrollbar pb-24 relative">
+<!-- Voice Input Section -->
+<section class="px-6 pt-6 pb-4">
+<div class="mb-3 flex items-center gap-2">
+<span class="material-icons-round text-primary text-sm">graphic_eq</span>
+<p class="text-sm font-medium text-primary">방금 말씀하신 내용이에요</p>
+</div>
+<!-- Speech Bubble -->
+<div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 dark:border-slate-700 relative group">
+<p class="text-lg leading-relaxed text-slate-800 dark:text-slate-200">
+                        "오늘 저녁에 먹을 <span class="uncertain-word font-medium text-primary bg-primary/5 px-1 rounded">삼겹살 한 근</span>이랑 <span class="font-medium text-slate-900 dark:text-white">우유 두 개</span>, 그리고 <span class="uncertain-word font-medium text-primary bg-primary/5 px-1 rounded">계란 한 판</span> 장바구니에 담아줘."
+                    </p>
+<button class="absolute bottom-3 right-3 p-1.5 bg-white dark:bg-slate-700 rounded-full shadow-sm text-slate-400 hover:text-primary transition-colors border border-slate-100 dark:border-slate-600">
+<span class="material-icons-round text-sm">edit</span>
+</button>
+</div>
+<!-- Action Buttons -->
+<div class="flex gap-3 mt-4">
+<button class="flex-1 flex flex-col items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm active:scale-95 transition-all">
+<span class="material-icons-round text-primary text-xl">keyboard</span>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-400">직접 수정</span>
+</button>
+<button class="flex-1 flex flex-col items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm active:scale-95 transition-all">
+<span class="material-icons-round text-rose-500 text-xl">mic</span>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-400">다시 말하기</span>
+</button>
+<button class="flex-1 flex flex-col items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm active:scale-95 transition-all">
+<span class="material-icons-round text-emerald-500 text-xl">add_circle</span>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-400">추가 입력</span>
+</button>
+</div>
+</section>
+<!-- Divider -->
+<div class="h-2 bg-background-light dark:bg-black/20 w-full mb-6"></div>
+<!-- Parsed List Section -->
+<section class="px-6">
+<div class="flex items-center justify-between mb-5">
+<h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        담긴 상품 <span class="bg-primary text-white text-xs font-bold px-2 py-0.5 rounded-full">3</span>
+</h2>
+<button class="text-xs text-slate-500 hover:text-primary font-medium">전체 삭제</button>
+</div>
+<div class="space-y-4">
+<!-- Item 1 -->
+<div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-soft border border-slate-100 dark:border-slate-700 flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg bg-red-50 dark:bg-red-900/20 flex items-center justify-center text-2xl shrink-0">
+                            🥩
+                        </div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-slate-900 dark:text-white truncate">국내산 삼겹살</h3>
+<button class="text-slate-400 hover:text-rose-500 -mt-1 -mr-2 p-2">
+<span class="material-icons-round text-lg">close</span>
+</button>
+</div>
+<div class="flex items-center justify-between mt-1">
+<span class="text-sm text-slate-500 dark:text-slate-400">100g당 2,580원</span>
+<div class="flex items-center bg-slate-100 dark:bg-slate-700 rounded-lg h-8">
+<button class="w-8 h-full flex items-center justify-center text-slate-500 hover:text-primary">
+<span class="material-icons-round text-base">remove</span>
+</button>
+<span class="text-sm font-semibold w-10 text-center text-slate-900 dark:text-white">600g</span>
+<button class="w-8 h-full flex items-center justify-center text-slate-500 hover:text-primary">
+<span class="material-icons-round text-base">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-soft border border-slate-100 dark:border-slate-700 flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-2xl shrink-0">
+                            🥛
+                        </div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-slate-900 dark:text-white truncate">서울우유 1L</h3>
+<button class="text-slate-400 hover:text-rose-500 -mt-1 -mr-2 p-2">
+<span class="material-icons-round text-lg">close</span>
+</button>
+</div>
+<div class="flex items-center justify-between mt-1">
+<span class="text-sm text-slate-500 dark:text-slate-400">2,980원</span>
+<div class="flex items-center bg-slate-100 dark:bg-slate-700 rounded-lg h-8">
+<button class="w-8 h-full flex items-center justify-center text-slate-500 hover:text-primary">
+<span class="material-icons-round text-base">remove</span>
+</button>
+<span class="text-sm font-semibold w-8 text-center text-slate-900 dark:text-white">2</span>
+<button class="w-8 h-full flex items-center justify-center text-slate-500 hover:text-primary">
+<span class="material-icons-round text-base">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-soft border border-slate-100 dark:border-slate-700 flex items-center gap-4">
+<div class="w-14 h-14 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 flex items-center justify-center text-2xl shrink-0">
+                            🥚
+                        </div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-slate-900 dark:text-white truncate">무항생제 특란 30구</h3>
+<button class="text-slate-400 hover:text-rose-500 -mt-1 -mr-2 p-2">
+<span class="material-icons-round text-lg">close</span>
+</button>
+</div>
+<div class="flex items-center justify-between mt-1">
+<span class="text-sm text-slate-500 dark:text-slate-400">8,900원</span>
+<div class="flex items-center bg-slate-100 dark:bg-slate-700 rounded-lg h-8">
+<button class="w-8 h-full flex items-center justify-center text-slate-500 hover:text-primary">
+<span class="material-icons-round text-base">remove</span>
+</button>
+<span class="text-sm font-semibold w-8 text-center text-slate-900 dark:text-white">1</span>
+<button class="w-8 h-full flex items-center justify-center text-slate-500 hover:text-primary">
+<span class="material-icons-round text-base">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Add Manual Item Button -->
+<button class="w-full mt-4 py-3 border border-dashed border-slate-300 dark:border-slate-600 rounded-xl flex items-center justify-center gap-2 text-slate-500 hover:text-primary hover:border-primary hover:bg-primary/5 transition-all">
+<span class="material-icons-round text-lg">add</span>
+<span class="text-sm font-medium">직접 상품 검색해서 추가하기</span>
+</button>
+<div class="h-10"></div> <!-- Spacer for scrolling -->
+</section>
+</main>
+<!-- Bottom Fixed Action -->
+<div class="absolute bottom-0 left-0 w-full bg-white/80 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-100 dark:border-slate-800 p-4 safe-area-bottom z-30">
+<div class="flex items-center justify-between mb-3 px-1">
+<span class="text-sm text-slate-500 dark:text-slate-400">총 3개 상품</span>
+<span class="text-lg font-bold text-slate-900 dark:text-white">~28,800원 <span class="text-xs font-normal text-slate-400">예상</span></span>
+</div>
+<button class="w-full bg-primary hover:bg-primary-dark text-white font-bold text-lg py-3.5 rounded-xl shadow-float active:scale-[0.99] transition-all flex items-center justify-center gap-2">
+<span>장바구니 담기</span>
+<span class="material-icons-round text-xl">shopping_cart</span>
+</button>
+</div>
+</div>
+</body></html>

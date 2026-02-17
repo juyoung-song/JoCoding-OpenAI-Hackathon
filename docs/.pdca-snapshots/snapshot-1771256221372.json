@@ -1,0 +1,321 @@
+{
+  "timestamp": "2026-02-16T15:37:01.370Z",
+  "reason": "compaction",
+  "status": {
+    "version": "2.0",
+    "lastUpdated": "2026-02-16T09:22:51.865Z",
+    "activeFeatures": [
+      "backend",
+      "domain",
+      "application",
+      "infrastructure",
+      "providers",
+      "persistence",
+      "api",
+      "tests",
+      "scripts",
+      "mock"
+    ],
+    "primaryFeature": "backend",
+    "features": {
+      "backend": {
+        "phase": "check",
+        "phaseNumber": 4,
+        "matchRate": 82,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-16T04:43:14.093Z",
+          "lastUpdated": "2026-02-16T09:14:50.017Z"
+        },
+        "lastFile": "E:\\AI\\똑장\\backend\\src\\main.py"
+      },
+      "domain": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-16T04:43:14.532Z",
+          "lastUpdated": "2026-02-16T04:44:30.094Z"
+        },
+        "lastFile": "E:/AI/똑장/backend/src/domain/protocols.py"
+      },
+      "application": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-16T04:43:15.114Z",
+          "lastUpdated": "2026-02-16T09:22:51.865Z"
+        },
+        "lastFile": "E:\\AI\\똑장\\backend\\src\\application\\plan_service.py"
+      },
+      "infrastructure": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-16T04:43:15.555Z",
+          "lastUpdated": "2026-02-16T04:43:15.555Z"
+        },
+        "lastFile": "E:/AI/똑장/backend/src/infrastructure/__init__.py"
+      },
+      "providers": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-16T04:43:16.060Z",
+          "lastUpdated": "2026-02-16T04:44:39.774Z"
+        },
+        "lastFile": "E:/AI/똑장/backend/src/infrastructure/providers/mock_providers.py"
+      },
+      "persistence": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-16T04:43:16.519Z",
+          "lastUpdated": "2026-02-16T04:45:48.872Z"
+        },
+        "lastFile": "E:/AI/똑장/backend/src/infrastructure/persistence/repository.py"
+      },
+      "api": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-16T04:43:17.026Z",
+          "lastUpdated": "2026-02-16T09:14:41.145Z"
+        },
+        "lastFile": "E:\\AI\\똑장\\backend\\src\\api\\dependencies.py"
+      },
+      "tests": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-16T04:43:17.516Z",
+          "lastUpdated": "2026-02-16T04:43:17.516Z"
+        },
+        "lastFile": "E:/AI/똑장/backend/tests/__init__.py"
+      },
+      "scripts": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-16T04:46:03.249Z",
+          "lastUpdated": "2026-02-16T04:46:03.249Z"
+        },
+        "lastFile": "E:/AI/똑장/backend/scripts/seed_mock_data.py"
+      },
+      "mock": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-02-16T04:48:40.608Z",
+          "lastUpdated": "2026-02-16T04:48:40.608Z"
+        },
+        "lastFile": "E:/AI/똑장/backend/mock/_gen_prices.py"
+      }
+    },
+    "pipeline": {
+      "currentPhase": 1,
+      "level": "Dynamic",
+      "phaseHistory": []
+    },
+    "session": {
+      "startedAt": "2026-02-15T11:30:24.752Z",
+      "onboardingCompleted": false,
+      "lastActivity": "2026-02-16T09:22:51.865Z"
+    },
+    "history": [
+      {
+        "timestamp": "2026-02-16T04:43:14.093Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:43:14.533Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:43:15.114Z",
+        "feature": "application",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:43:15.555Z",
+        "feature": "infrastructure",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:43:16.060Z",
+        "feature": "providers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:43:16.519Z",
+        "feature": "persistence",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:43:17.026Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:43:17.516Z",
+        "feature": "tests",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:43:27.560Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:43:30.610Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:44:01.963Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:44:17.192Z",
+        "feature": "persistence",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:44:30.094Z",
+        "feature": "domain",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:44:39.774Z",
+        "feature": "providers",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:44:52.785Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:45:48.872Z",
+        "feature": "persistence",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:46:03.249Z",
+        "feature": "scripts",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T04:48:40.608Z",
+        "feature": "mock",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T09:12:00.236Z",
+        "feature": "application",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T09:12:39.600Z",
+        "feature": "application",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T09:13:07.138Z",
+        "feature": "application",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T09:14:18.339Z",
+        "feature": "application",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T09:14:36.088Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T09:14:41.145Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T09:14:50.017Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-02-16T09:22:51.865Z",
+        "feature": "application",
+        "phase": "do",
+        "action": "updated"
+      }
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>구매 방식 선택 - 똑장</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "primary-dark": "#0b63b9",
+                        "secondary": "#22c55e",
+                        "secondary-dark": "#16a34a",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'card': '0 0 0 1px rgba(0,0,0,0.03), 0 2px 8px rgba(0,0,0,0.04)',
+                        'card-hover': '0 0 0 1px rgba(0,0,0,0.03), 0 8px 24px rgba(0,0,0,0.08)',
+                        'glow-primary': '0 0 20px -5px rgba(19, 127, 236, 0.3)',
+                        'glow-secondary': '0 0 20px -5px rgba(34, 197, 94, 0.3)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-100 antialiased min-h-screen flex justify-center">
+<!-- Mobile Container -->
+<div class="w-full max-w-md bg-white dark:bg-slate-900 min-h-screen shadow-2xl relative flex flex-col">
+<!-- Header -->
+<header class="px-5 pt-6 pb-4 flex items-center justify-between sticky top-0 z-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm">
+<button aria-label="Go back" class="p-2 -ml-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors">
+<span class="material-icons-round text-2xl leading-none">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold text-slate-900 dark:text-white">구매 방식 선택</h1>
+<div class="w-10"></div> <!-- Spacer for balance -->
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-6 py-4 flex flex-col">
+<!-- Instructional Text -->
+<div class="mb-8 mt-2">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white leading-tight mb-2">
+                    어떻게 장을 <br/>보시겠어요?
+                </h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm">
+                    장바구니에 담은 상품의 구매 방식을 선택해주세요.
+                </p>
+</div>
+<!-- Decision Cards Container -->
+<div class="flex-1 flex flex-col gap-5">
+<!-- Option 1: Online (Blue Theme) -->
+<button class="group relative w-full text-left bg-white dark:bg-slate-800 rounded-3xl p-6 border-2 border-slate-100 dark:border-slate-700 hover:border-primary/50 hover:shadow-glow-primary transition-all duration-300 ease-out active:scale-[0.98]">
+<div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-icons-round text-primary text-8xl transform rotate-12 group-hover:rotate-0 transition-transform duration-500">local_shipping</span>
+</div>
+<div class="relative z-10">
+<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-primary/10 text-primary text-xs font-bold mb-4 ring-1 ring-primary/20">
+                            🚀 가장 편리해요
+                        </span>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">
+                            온라인 주문
+                        </h3>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-6">
+                            집 앞으로 배송 받기
+                        </p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+<span class="material-icons-round text-xl">arrow_forward</span>
+</div>
+<span class="text-xs text-slate-400 dark:text-slate-500 group-hover:text-primary dark:group-hover:text-primary/80 transition-colors">
+                                오늘 밤 11시 전 주문 시 내일 새벽 도착
+                            </span>
+</div>
+</div>
+</button>
+<!-- Option 2: Offline (Green Theme) -->
+<button class="group relative w-full text-left bg-white dark:bg-slate-800 rounded-3xl p-6 border-2 border-slate-100 dark:border-slate-700 hover:border-secondary/50 hover:shadow-glow-secondary transition-all duration-300 ease-out active:scale-[0.98]">
+<div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-icons-round text-secondary text-8xl transform -rotate-12 group-hover:rotate-0 transition-transform duration-500">storefront</span>
+</div>
+<div class="relative z-10">
+<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-secondary/10 text-secondary text-xs font-bold mb-4 ring-1 ring-secondary/20">
+                            🛒 배송비 0원
+                        </span>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-secondary transition-colors">
+                            오프라인 방문
+                        </h3>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-6">
+                            매장에서 직접 구매하기
+                        </p>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
+<span class="material-icons-round text-xl">arrow_forward</span>
+</div>
+<span class="text-xs text-slate-400 dark:text-slate-500 group-hover:text-secondary dark:group-hover:text-secondary/80 transition-colors">
+                                매장 재고 확인 및 위치 안내 서비스 제공
+                            </span>
+</div>
+</div>
+</button>
+</div>
+<!-- Footer / Disclaimer -->
+<div class="mt-8 mb-6 text-center">
+<div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3 inline-block">
+<p class="text-xs text-slate-400 dark:text-slate-500 flex items-center justify-center gap-1.5">
+<span class="material-icons-round text-sm">info</span>
+                        온/오프라인 구매 시 상품 가격이 상이할 수 있습니다.
+                    </p>
+</div>
+</div>
+</main>
+<!-- Bottom Safe Area (simulated for iOS) -->
+<div class="h-6 w-full"></div>
+</div>
+</body></html>
