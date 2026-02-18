@@ -205,3 +205,27 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# --- Custom Project Patterns ---
+
+# Frontend / Node.js
+node_modules/
+dist/
+dist-ssr/
+*.local
+.env.*
+frontend/node_modules/
+frontend/dist/
+
+# Backend / Local Databases & Logs
+backend/*.db
+backend/*.log
+backend/app.db
+backend/cache.db
+backend/backend_debug.log
+backend/venv/
+
+# OS / Editor
+.DS_Store
+.vscode/
+.idea/

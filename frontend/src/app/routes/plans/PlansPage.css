@@ -1,0 +1,397 @@
+/* ── Plans Page Styles ── */
+
+.ai-badge-header {
+    margin-bottom: 12px;
+}
+
+.plans-headline {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.4;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.plans-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.plans-section {
+    margin-bottom: 32px;
+}
+
+.plans-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.plans-section-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.last-update {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+/* Plan card base */
+.plan-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: visible;
+    padding: 20px;
+    background: #fff;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-light);
+}
+
+.plan-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.plan-card.best {
+    border: 2px solid var(--primary);
+    background: var(--primary-bg-subtle);
+}
+
+.best-match-tag {
+    position: absolute;
+    top: -1px;
+    right: 16px;
+    background: var(--text-primary);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    letter-spacing: 0.5px;
+    z-index: 10;
+}
+
+.plan-card-body {
+    flex: 1;
+}
+
+.plan-rank-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.plan-rank {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.plan-rank.rank-1 {
+    color: var(--primary);
+    font-size: 20px;
+}
+
+.plan-divider {
+    color: var(--border-default);
+    font-size: 14px;
+}
+
+.plan-name {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.plan-price {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 4px 0 8px;
+}
+
+.plan-price.highlight {
+    color: var(--primary);
+    font-size: 26px;
+}
+
+.plan-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.plan-badge {
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+}
+
+.plan-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-md);
+    background: var(--bg-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+/* Expanded Plan Card State Overrides */
+.plan-card.expanded {
+    flex-direction: column;
+    align-items: stretch;
+    padding-bottom: 0;
+}
+
+.plan-card.expanded .plan-card-body {
+    padding-bottom: 20px;
+    border-bottom: 1px dashed var(--border-light);
+}
+
+.plan-card.expanded .plan-icon {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.expand-hint {
+    margin-top: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary);
+    text-align: center;
+    background: var(--bg-tertiary);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+/* Coverage Bar */
+.plan-coverage {
+    margin: 12px 0;
+    max-width: 200px;
+}
+
+.coverage-bar {
+    height: 6px;
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.coverage-fill {
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.8s ease;
+}
+
+.coverage-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Itemized Details List */
+.plan-details-list {
+    padding: 20px 0;
+}
+
+.details-header {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.detail-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+
+.detail-item:last-of-type {
+    border-bottom: none;
+}
+
+.detail-status {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.available .detail-status {
+    background: #e7f5ff;
+    color: #1c7ed6;
+}
+
+.unavailable .detail-status {
+    background: #fff5f5;
+    color: #fa5252;
+}
+
+.detail-info {
+    flex: 1;
+}
+
+.status-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-right: 6px;
+}
+
+.status-badge.in-stock {
+    background: #e7f5ff;
+    color: #1c7ed6;
+}
+
+.status-badge.out-stock {
+    background: #fff5f5;
+    color: #fa5252;
+}
+
+.item-brand {
+    font-size: 11px;
+    font-weight: 700;
+    color: #adb5bd;
+}
+
+.detail-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.detail-price {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.detail-msg {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+.btn-checkout {
+    width: 100%;
+    margin-top: 20px;
+    padding: 16px;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 10px 25px rgba(19, 73, 236, 0.15);
+}
+
+/* Alternative section */
+.alt-section {
+    padding-top: 24px;
+    border-top: 8px solid var(--bg-secondary);
+    margin: 0 -20px;
+    padding: 24px 20px;
+}
+
+.alt-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.alt-header h3 {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.info-icon {
+    font-size: 16px;
+}
+
+.alt-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.alt-card-body {
+    flex: 1;
+}
+
+.alt-note {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.alt-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+.alt-divider {
+    height: 1px;
+    background: var(--border-light);
+    margin: 12px 0;
+}
+
+.alt-saving-text {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.alt-saving {
+    color: var(--error);
+    font-weight: 700;
+}
+
+.alt-prices {
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: 16px;
+}
+
+.alt-original {
+    display: block;
+    font-size: 14px;
+    color: var(--text-tertiary);
+    text-decoration: line-through;
+}
+
+.alt-discount {
+    display: block;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-top: 2px;
+}

@@ -1,0 +1,182 @@
+/* ── Analysis Page Styles ── */
+
+.analysis-page {
+    background: var(--bg-primary);
+}
+
+.analysis-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.analysis-hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.analysis-icon-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--primary-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    animation: pulse 2s infinite;
+}
+
+.analysis-icon {
+    font-size: 48px;
+}
+
+.analysis-hero h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.analysis-subtitle {
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Steps */
+.analysis-steps {
+    width: 100%;
+    max-width: 320px;
+}
+
+.step-item {
+    display: flex;
+    gap: 16px;
+    position: relative;
+}
+
+.step-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.step-check,
+.step-spinner,
+.step-wait {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    z-index: 1;
+}
+
+.step-check {
+    background: var(--primary);
+    color: white;
+}
+
+.step-spinner {
+    background: var(--primary);
+    color: white;
+    animation: spin 1s linear infinite;
+}
+
+.step-wait {
+    background: var(--bg-tertiary);
+    color: var(--text-tertiary);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.step-line {
+    width: 2px;
+    height: 40px;
+    background: var(--border-default);
+    margin: 4px 0;
+}
+
+.step-item.done .step-line {
+    background: var(--primary);
+}
+
+.step-content {
+    padding: 8px 0 24px;
+}
+
+.step-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.step-item.waiting .step-label {
+    color: var(--text-tertiary);
+}
+
+.step-status-text {
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.step-item.done .step-status-text {
+    color: var(--success);
+}
+
+.step-item.loading .step-status-text {
+    color: var(--primary);
+}
+
+.step-item.waiting .step-status-text {
+    color: var(--text-tertiary);
+}
+
+/* Footer */
+.analysis-footer {
+    padding: 20px;
+    border-top: 1px solid var(--border-light);
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.eta strong {
+    color: var(--primary);
+}
+
+.progress-bar {
+    height: 8px;
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
