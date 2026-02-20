@@ -548,14 +548,14 @@ async def _generate_mock_candidates(
                 badges=[],
                 explanation="",
                 cart_url=CART_LINKS.get(mart_name),
-                price_source="mock_online" if mode == "online" else "offline_db",
+                price_source="mock_online" if mode == "online" else "mock_offline",
                 price_observed_at=datetime.now(timezone.utc).isoformat(),
                 price_notice=(
                     "모의 데이터 기준이며 실제 결제 금액과 차이가 날 수 있어요."
                     if mode == "online"
-                    else "DB 스냅샷 기준이며, 현장 가격과 차이가 날 수 있어요."
+                    else "모의 데이터 기준이며, 현장 가격과 차이가 날 수 있어요."
                 ),
-                data_source="mock_online" if mode == "online" else "offline_snapshot",
+                data_source="mock_online" if mode == "online" else "mock_offline",
                 mall_product_links=[CART_LINKS[mart_name]] if CART_LINKS.get(mart_name) else [],
                 direct_cart_supported=False,
                 expected_delivery_hours=max(1, round(delivery["eta_minutes"] / 60)) if mode == "online" else None,

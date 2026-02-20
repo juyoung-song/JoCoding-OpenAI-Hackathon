@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Mic, Square, Send } from "lucide-react";
 import { useApp } from "../app/store/AppContext";
+import {
+  clearVoiceInputOrigin,
+  getVoiceInputOrigin,
+} from "../app/voiceInputOrigin";
 
 type SpeechRecognitionLike = {
   lang: string;
@@ -35,6 +39,7 @@ export default function VoiceInputScreen() {
     }
     return "현재 브라우저에서 음성 인식을 지원하지 않습니다. 텍스트 입력으로 이용해주세요.";
   })();
+  const returnToChat = getVoiceInputOrigin() === "chat";
 
   useEffect(() => {
     const win = window as WindowWithSpeech;
@@ -90,15 +95,24 @@ export default function VoiceInputScreen() {
   const sendTranscript = () => {
     if (!transcript.trim()) return;
     setPendingChatMessage(transcript.trim());
+    clearVoiceInputOrigin();
     setCurrentScreen("HOME");
     setIsChatOpen(true);
+  };
+
+  const handleBack = () => {
+    clearVoiceInputOrigin();
+    setCurrentScreen("HOME");
+    if (returnToChat) {
+      setIsChatOpen(true);
+    }
   };
 
   return (
     <div className="h-full bg-white flex flex-col">
       <div className="p-4 border-b border-gray-200 flex items-center gap-3">
         <button
-          onClick={() => setCurrentScreen("HOME")}
+          onClick={handleBack}
           className="p-2 -ml-2 rounded-full hover:bg-gray-100"
         >
           <ArrowLeft size={20} className="text-gray-700" />

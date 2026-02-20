@@ -1,6 +1,6 @@
-# 똑장ver2 통합 실행 계획 v1.10 (Online MVP Hardening Completed)
+# 똑장ver2 통합 실행 계획 v1.11 (UX + 가격데이터 신뢰도 보강 계획 반영)
 
-기준일: 2026-02-19  
+기준일: 2026-02-20  
 기준 문서: `README.md`, `backend/README.md`, `reference/backend/reference_guide.md`, `reference/backend/reference_guide2.md`
 
 ## 1. 목표
@@ -200,6 +200,44 @@
 2. `cd frontend && npx tsc --noEmit` -> PASS
 3. `cd frontend && npm run build` -> `vite v6.4.1 build success`
 
+## Phase 7-C — 사용자 피드백 배치(로그인 보조버튼 제거 + 채팅 음성입력 + 가격데이터 점검, 완료)
+- 목적: 2026-02-20 피드백 3건을 기준으로 UX 불필요 요소를 제거하고, 채팅 진입 이후 입력 편의성과 가격 신뢰도를 동시에 끌어올린다.
+- 작업:
+1. 로그인 화면 CTA 정리
+   - `로그인` 버튼은 유지
+   - `frontend/src/pages/LoginScreen.tsx`의 하단 `맞춤 설정 다시 하기` 버튼 제거
+   - 로그인 화면에서 필요한 핵심 액션(이메일 입력 + 로그인)만 유지
+2. 채팅 화면 음성입력 확장
+   - `frontend/src/features/chat/AiChatModal.tsx`에 음성입력 진입 버튼 추가
+   - 채팅 화면에서 즉시 `VOICE_INPUT_CONFIRM`으로 이동 가능하도록 이벤트 연결
+   - `frontend/src/pages/VoiceInputScreen.tsx` 복귀 경로를 호출 컨텍스트 기반으로 정리
+3. 가격 데이터 신뢰도 점검/보정 (온라인 + 오프라인)
+   - 온라인:
+     - `backend/src/infrastructure/providers/naver_shopping.py`의 몰/품목 필터링 조건 재점검
+     - `backend/src/application/services/online_plan_adapter.py`에서 품목별 이상치(최저가 극단값) 컷오프 로직 추가
+   - 오프라인:
+     - `backend/src/application/services/offline_plan_adapter.py`의 스냅샷 소스/관측시점 점검
+     - fallback 경로(`mock`) 사용 시 UI에 명확한 출처/주의문구 노출 검증
+   - 공통:
+     - 가격 이상치 탐지 테스트(단위가격/총액 범위/품목별 분산) 추가
+     - `price_source`, `price_observed_at`, `price_notice` 노출 일관성 재검증
+4. 데이터 점검 리포트 산출
+   - 문제 케이스(품목/판매처/가격/원인)를 표 형태로 정리
+   - 수정 전/후 비교(상위 10개 품목 기준) 수치 기록
+- 완료 기준:
+1. 로그인 화면에서 불필요 CTA 제거 완료
+2. 홈/채팅 어디서든 음성입력 진입 가능
+3. 온라인/오프라인 가격 이상치 재현 케이스에 대해 원인 분류와 코드/데이터 대응 완료
+4. `pytest -q`, `npm run build`, 수동 시나리오(로그인 → 채팅 음성입력 → 플랜 비교) 통과
+- 검증 계획:
+1. API 샘플 바스켓 10세트 기준 온라인/오프라인 총액 분포 확인
+2. `price_notice`/`price_source` UI 노출 스냅샷 점검
+3. 도커 환경 수동 E2E 2회 이상 재현 확인
+- 검증 결과:
+1. `cd backend && pytest -q` -> `61 passed in 59.02s`
+2. `cd frontend && npx tsc --noEmit` -> PASS
+3. `cd frontend && npm run build` -> `vite v6.4.1 build success`
+
 ## 3. 체크리스트
 - [x] Phase 1 완료
 - [x] Phase 2 완료
@@ -209,6 +247,7 @@
 - [x] Phase 6-F 2차 리뷰 Follow-up 배치 완료
 - [x] Phase 7-A 보안 의존성 업그레이드(1차) 완료
 - [x] Phase 7-B 사용자 피드백 배치 완료
+- [x] Phase 7-C 사용자 피드백 배치(로그인/음성입력/가격데이터) 완료
 
 ## 4. 검증 결과 (Phase 5 Validation, 2026-02-19)
 - `cd frontend && npm run build` -> `vite v6.3.5 build success`

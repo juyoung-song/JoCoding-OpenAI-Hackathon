@@ -37,18 +37,6 @@ class MockOfflineProvider(OfflinePriceProvider):
                     store_name=store,
                     is_sold_out=False
                 ))
-            else:
-                # 가격 정보 없으면 랜덤 생성 (Mock)
-                base_price = 5000
-                results.append(PlanItem(
-                    item_name=item.item_name,
-                    brand=item.brand,
-                    size=item.size or "1개",
-                    quantity=item.quantity,
-                    price=base_price * item.quantity,
-                    store_name=store,
-                    is_sold_out=False
-                ))
         return results
 
 class MockWeatherProvider(WeatherProvider):

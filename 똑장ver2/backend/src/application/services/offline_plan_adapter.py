@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import statistics
 from typing import Optional
 
 import aiosqlite
@@ -26,6 +27,9 @@ DEFAULT_USER_LAT = 37.4985
 DEFAULT_USER_LNG = 127.0292
 DEFAULT_TRAVEL_MODE = "walk"
 DEFAULT_MAX_TRAVEL_MINUTES = 30
+MIN_REASONABLE_OFFLINE_UNIT_PRICE = 100
+OFFLINE_OUTLIER_LOWER_RATIO = 0.45
+OFFLINE_OUTLIER_UPPER_RATIO = 2.2
 
 
 @dataclass
@@ -83,6 +87,10 @@ class OfflinePlanAdapter:
                 filtered_store_count=0,
             )
 
+        guardrails = await self._build_price_guardrails(
+            [matched.product_norm_key for _, matched in matched_items]
+        )
+
         radius_km = self._estimate_radius(max_travel_minutes, travel_mode)
         stores, place_degraded = await self._find_candidate_stores(
             lat, lng, radius_km=radius_km, limit=30, place_provider=place_provider
@@ -135,6 +143,7 @@ class OfflinePlanAdapter:
                 matched_items,
                 mode,
                 travel_mode,
+                price_guardrails=guardrails,
                 preferred_brands=preferred_brands,
                 disliked_brands=disliked_brands,
             )
@@ -214,6 +223,7 @@ class OfflinePlanAdapter:
         matched_items: list[tuple[int, MatchResult]],
         mode: str,
         travel_mode: str,
+        price_guardrails: dict[str, tuple[int, int]],
         preferred_brands: Optional[list[str]] = None,
         disliked_brands: Optional[list[str]] = None,
     ) -> Optional[Plan]:
@@ -248,6 +258,22 @@ class OfflinePlanAdapter:
             basket_item = basket.items[basket_idx]
             quantity = basket_item.quantity
             unit_price = int(snap["price_won"])
+            if not self._is_price_within_guardrail(
+                matched.product_norm_key,
+                unit_price,
+                price_guardrails,
+            ):
+                alternative = await self._find_alternative_for_missing(store["store_id"], matched)
+                missing_items.append(
+                    MissingPlanItem(
+                        item_name=basket_item.item_name,
+                        requested_brand=basket_item.brand,
+                        requested_size=basket_item.size or matched.size_display,
+                        reason="가격 이상치 제외",
+                        alternative=alternative,
+                    )
+                )
+                continue
             subtotal = unit_price * quantity
             normalized_size = (
                 basket_item.size
@@ -578,3 +604,55 @@ class OfflinePlanAdapter:
         if "코스트코" in store_name:
             return "🏭"
         return "🛒"
+
+    async def _build_price_guardrails(
+        self,
+        product_keys: list[str],
+    ) -> dict[str, tuple[int, int]]:
+        if not product_keys:
+            return {}
+
+        unique_keys = list(dict.fromkeys(product_keys))
+        placeholders = ",".join("?" for _ in unique_keys)
+        cursor = await self._db.execute(
+            f"""SELECT product_norm_key, price_won
+                FROM offline_price_snapshot
+                WHERE product_norm_key IN ({placeholders})
+                  AND price_won > 0""",
+            unique_keys,
+        )
+        rows = await cursor.fetchall()
+        await cursor.close()
+
+        prices_by_key: dict[str, list[int]] = {}
+        for row in rows:
+            key = str(row["product_norm_key"])
+            price = int(row["price_won"])
+            if price <= 0:
+                continue
+            prices_by_key.setdefault(key, []).append(price)
+
+        guardrails: dict[str, tuple[int, int]] = {}
+        for key, prices in prices_by_key.items():
+            if not prices:
+                continue
+            median_price = float(statistics.median(prices))
+            lower_bound = max(MIN_REASONABLE_OFFLINE_UNIT_PRICE, int(median_price * OFFLINE_OUTLIER_LOWER_RATIO))
+            upper_bound = max(lower_bound + 1, int(median_price * OFFLINE_OUTLIER_UPPER_RATIO))
+            guardrails[key] = (lower_bound, upper_bound)
+        return guardrails
+
+    def _is_price_within_guardrail(
+        self,
+        product_norm_key: str,
+        unit_price: int,
+        guardrails: dict[str, tuple[int, int]],
+    ) -> bool:
+        if unit_price < MIN_REASONABLE_OFFLINE_UNIT_PRICE:
+            return False
+
+        bounds = guardrails.get(product_norm_key)
+        if not bounds:
+            return True
+        lower, upper = bounds
+        return lower <= unit_price <= upper

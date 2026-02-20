@@ -69,6 +69,25 @@ MALL_ICONS = {
     "쿠팡": "🚀", "롯데마트": "🔴", "SSG": "🟡",
 }
 
+TITLE_EXCLUDE_KEYWORDS = {
+    "교환권",
+    "상품권",
+    "기프티콘",
+    "사은품",
+    "증정",
+    "공병",
+    "케이스",
+    "뚜껑",
+    "소품",
+    "스티커",
+    "굿즈",
+}
+
+ITEM_TITLE_SYNONYMS = {
+    "계란": ["달걀"],
+    "달걀": ["계란"],
+}
+
 logger = logging.getLogger(__name__)
 
 
@@ -114,6 +133,25 @@ class NaverShoppingProvider(OnlinePriceProvider):
     @staticmethod
     def _clean_html(text: str) -> str:
         return re.sub(r"<[^>]+>", "", text)
+
+    @staticmethod
+    def _normalize_text(text: str | None) -> str:
+        return re.sub(r"[^0-9a-zA-Z가-힣]", "", str(text or "")).lower()
+
+    def _matches_item_name(self, raw_title: str, original_name: str) -> bool:
+        title_norm = self._normalize_text(raw_title)
+        item_norm = self._normalize_text(original_name)
+        if not item_norm:
+            return True
+
+        candidates = [item_norm]
+        for key, values in ITEM_TITLE_SYNONYMS.items():
+            key_norm = self._normalize_text(key)
+            if key_norm == item_norm:
+                candidates.extend(self._normalize_text(value) for value in values)
+                break
+
+        return any(token and token in title_norm for token in candidates)
 
     @staticmethod
     def _is_food_item(raw_item: dict) -> bool:
@@ -295,6 +333,11 @@ class NaverShoppingProvider(OnlinePriceProvider):
         if not any(target in mall_name for target in TARGET_MALLS):
             return None
         title = self._clean_html(raw.get("title", ""))
+        lowered_title = title.lower()
+        if any(keyword in lowered_title for keyword in TITLE_EXCLUDE_KEYWORDS):
+            return None
+        if not self._matches_item_name(title, original_item.item_name):
+            return None
         return PlanItem(
             item_name=original_item.item_name,
             brand=raw.get("brand") or None,

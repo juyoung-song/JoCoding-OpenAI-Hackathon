@@ -1,5 +1,77 @@
 # HISTORY.md — 똑장 프로젝트 진행 이력
 
+## [2026-02-20] v3.12 사용자 피드백 3건 코드 반영 — 로그인 보조버튼 제거/채팅 음성입력/가격 가드레일
+
+- **Status**: Completed
+- **Changes**:
+  - Frontend
+    - `frontend/src/pages/LoginScreen.tsx`
+      - 로그인 버튼 하단 `맞춤 설정 다시 하기` 버튼 제거 (`로그인` 버튼은 유지)
+    - `frontend/src/features/chat/AiChatModal.tsx`
+      - 채팅 입력창에 음성 입력 진입 버튼 추가
+      - 채팅 화면에서 `VOICE_INPUT_CONFIRM`로 이동 가능하도록 연결
+    - `frontend/src/pages/HomeScreen.tsx`
+      - 음성 입력 진입 시 origin 저장 로직 추가
+    - `frontend/src/pages/VoiceInputScreen.tsx`
+      - origin(`home`/`chat`) 기반 복귀 경로 보정
+    - `frontend/src/app/voiceInputOrigin.ts` (신규)
+      - 음성 입력 진입 origin 상태 유틸 추가
+  - Backend (가격 데이터 점검/보정)
+    - `backend/src/infrastructure/providers/naver_shopping.py`
+      - 제목 기반 품목 일치 필터 추가
+      - 교환권/사은품 등 비정상 후보 제외 키워드 필터 추가
+    - `backend/src/application/services/online_plan_adapter.py`
+      - 품목별 unit price 기준 이상치(outlier) 컷오프 추가
+    - `backend/src/application/services/offline_plan_adapter.py`
+      - 오프라인 스냅샷 가격 guardrail(중앙값 기반 하/상한) 추가
+      - guardrail 이탈 시 `가격 이상치 제외` 처리
+    - `backend/src/infrastructure/providers/mock_providers.py`
+      - 미매칭 품목의 임의 기본가(5000원) 주입 제거
+    - `backend/src/api/v1/routers/plans.py`
+      - mock fallback 출처를 `mock_offline`로 명시
+  - Tests
+    - `backend/tests/test_online_pricing_guards.py` (신규)
+      - 온라인 이상치 저가 후보 필터 회귀 추가
+    - `backend/tests/test_offline_integration.py`
+      - 극단값 스냅샷 가격 필터 회귀 추가
+  - Docs
+    - `PLAN.md` -> `Phase 7-C` 완료 처리 + 검증 결과 반영
+    - `reference/docs/INTEGRATION_EXECUTION_PLAN_2026-02-20_v1.10.md`
+      - 진행 로그/검증 결과 반영
+- **Decisions**:
+  - 로그인 UX는 핵심 액션(입력 + 로그인)만 남기고 보조 CTA를 제거한다.
+  - 가격 이상치는 수집 단계 필터 + 어댑터 단계 outlier 컷오프를 동시에 적용한다.
+  - mock fallback 경로는 출처를 명시해 사용자 오해를 줄인다.
+- **Verification**:
+  - `cd backend && pytest -q` -> `61 passed in 59.02s`
+  - `cd frontend && npx tsc --noEmit` -> PASS
+  - `cd frontend && npm run build` -> `vite v6.4.1 build success`
+
+---
+
+## [2026-02-20] v3.11 사용자 피드백 3건 대응 계획 배치 — 실행 계획 문서화
+
+- **Status**: Completed (Planning Docs)
+- **Changes**:
+  - `PLAN.md`
+    - 문서 버전을 `v1.11`로 상향
+    - `Phase 7-C` 신규 추가:
+      - 로그인 화면의 하단 `맞춤 설정 다시 하기` 버튼 제거 계획
+      - 채팅 화면 음성 입력 진입 확장 계획
+      - 온라인/오프라인 가격 데이터 이상치 점검 및 보정 계획
+    - 요구사항 명시: `로그인` 버튼은 유지, 보조 버튼만 제거
+  - `reference/docs/INTEGRATION_EXECUTION_PLAN_2026-02-20_v1.10.md` (신규)
+    - 이슈 3건에 대한 상세 실행 트랙(Track A/B/C), 파일 단위 대상, 검증 계획, 리스크 대응 작성
+- **Decisions**:
+  - 이번 배치는 코드 변경 전 “실행 계획 확정 + 이력 고정”을 우선한다.
+  - 가격 이슈는 수집/매칭/표시 3개 축으로 분해 점검한다.
+- **Verification**:
+  - `PLAN.md`, `reference/docs/*v1.10.md`, `HISTORY.md` 상호 참조 및 버전 체계 정합성 확인
+- **Next Steps**:
+  - Phase 7-C 코드 구현(프론트 UX 수정 + 백엔드 가격 가드레일 + 회귀 테스트)
+
+---
+
 ## [2026-02-20] v3.10 OpenAI 모델 정책 정렬 — `gpt-5-mini` 단일 고정
 
 - **Status**: Completed

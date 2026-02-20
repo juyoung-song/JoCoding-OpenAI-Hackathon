@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+import statistics
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Optional
@@ -26,6 +27,10 @@ MALL_DELIVERY_POLICY: dict[str, dict[str, int]] = {
 }
 
 ONLINE_PRICE_NOTICE = "네이버 쇼핑 검색 기준이며, 결제 시점 실제 가격/재고와 차이가 날 수 있어요."
+MIN_REASONABLE_UNIT_PRICE = 100
+MAX_REASONABLE_UNIT_PRICE = 300000
+OUTLIER_LOWER_RATIO = 0.45
+OUTLIER_UPPER_RATIO = 2.2
 
 
 @dataclass
@@ -120,9 +125,10 @@ class OnlinePlanAdapter:
         for basket_item in items:
             item_key = self._basket_item_key(basket_item)
             candidates = search_cache.get(item_key, [])
+            filtered_candidates = self._filter_price_outliers(basket_item, candidates)
             mall_candidates = [
                 candidate
-                for candidate in candidates
+                for candidate in filtered_candidates
                 if self._matches_mall(candidate.store_name, aliases)
             ]
             if mall_candidates:
@@ -149,7 +155,7 @@ class OnlinePlanAdapter:
                     disliked_hits += 1
                 continue
 
-            alternative = self._pick_alternative(basket_item, candidates)
+            alternative = self._pick_alternative(basket_item, filtered_candidates)
             missing_items.append(
                 MissingPlanItem(
                     item_name=basket_item.item_name,
@@ -256,3 +262,43 @@ class OnlinePlanAdapter:
             seen.add(value)
             deduped.append(value)
         return deduped
+
+    def _unit_price(self, candidate: PlanItem, quantity: int) -> float:
+        qty = max(1, quantity)
+        return float(candidate.price) / qty
+
+    def _filter_price_outliers(self, basket_item: BasketItem, candidates: list[PlanItem]) -> list[PlanItem]:
+        if not candidates:
+            return []
+
+        in_range = [
+            candidate
+            for candidate in candidates
+            if MIN_REASONABLE_UNIT_PRICE
+            <= self._unit_price(candidate, basket_item.quantity)
+            <= MAX_REASONABLE_UNIT_PRICE
+        ]
+        if not in_range:
+            return candidates
+
+        unit_prices = [self._unit_price(candidate, basket_item.quantity) for candidate in in_range]
+        if len(unit_prices) < 3:
+            return in_range
+
+        median_price = float(statistics.median(unit_prices))
+        lower_bound = max(MIN_REASONABLE_UNIT_PRICE, median_price * OUTLIER_LOWER_RATIO)
+        upper_bound = min(MAX_REASONABLE_UNIT_PRICE, median_price * OUTLIER_UPPER_RATIO)
+
+        filtered = [
+            candidate
+            for candidate in in_range
+            if lower_bound <= self._unit_price(candidate, basket_item.quantity) <= upper_bound
+        ]
+        if filtered:
+            return filtered
+
+        closest = min(
+            in_range,
+            key=lambda candidate: abs(self._unit_price(candidate, basket_item.quantity) - median_price),
+        )
+        return [closest]

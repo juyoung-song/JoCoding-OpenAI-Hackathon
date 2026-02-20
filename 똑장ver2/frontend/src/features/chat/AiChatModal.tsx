@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Mic } from "lucide-react";
 import { useApp } from "../../app/store/AppContext";
 import { ChatAPI, DiffItemResponse } from "../../api";
+import { setVoiceInputOrigin } from "../../app/voiceInputOrigin";
 import ddokjangLogo from "../../assets/ddokjang-logo.png";
 
 interface Message {
@@ -47,7 +48,14 @@ const buildDiffSummary = (diff: DiffItemResponse[] | null | undefined): string =
 };
 
 export default function AiChatFullScreen() {
-  const { setIsChatOpen, pendingChatMessage, setPendingChatMessage, refreshBasket, userProfile } = useApp();
+  const {
+    setIsChatOpen,
+    setCurrentScreen,
+    pendingChatMessage,
+    setPendingChatMessage,
+    refreshBasket,
+    userProfile,
+  } = useApp();
   const chatStorageKey = useMemo(() => buildChatStorageKey(userProfile.email), [userProfile.email]);
   const [chatInput, setChatInput] = useState("");
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
@@ -104,6 +112,12 @@ export default function AiChatFullScreen() {
       await refreshBasket();
       setIsLoading(false);
     }
+  };
+
+  const openVoiceInputFromChat = () => {
+    setVoiceInputOrigin("chat");
+    setIsChatOpen(false);
+    setCurrentScreen("VOICE_INPUT_CONFIRM");
   };
 
   return (
@@ -179,6 +193,14 @@ export default function AiChatFullScreen() {
             disabled={isLoading}
             className="flex-1 bg-transparent outline-none text-sm text-gray-900 placeholder:text-gray-400 disabled:opacity-50"
           />
+          <button
+            onClick={openVoiceInputFromChat}
+            disabled={isLoading}
+            className="bg-white hover:bg-gray-100 p-2.5 rounded-xl transition-colors border border-gray-200 shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="음성 입력"
+          >
+            <Mic className="w-4 h-4 text-gray-700" />
+          </button>
           <button
             onClick={() => {
               void handleSend();

@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Mic, ChevronRight, Bell } from "lucide-react";
 import { useApp } from "../app/store/AppContext";
+import { setVoiceInputOrigin } from "../app/voiceInputOrigin";
 import ddokjangLogo from "../assets/ddokjang-logo.png";
 
 // Brand Character Image
@@ -65,6 +66,7 @@ export default function HomeScreen() {
       setSearchText('');
       return;
     }
+    setVoiceInputOrigin("home");
     setCurrentScreen('VOICE_INPUT_CONFIRM');
   };
 

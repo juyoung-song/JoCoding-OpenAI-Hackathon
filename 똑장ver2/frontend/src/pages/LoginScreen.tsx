@@ -86,13 +86,6 @@ export default function LoginScreen() {
           <LogIn size={16} />
           {submitting ? "로그인 중..." : "베타 로그인"}
         </button>
-
-        <button
-          onClick={() => showToast("맞춤 설정은 로그인 후 진행할 수 있어요.", "info")}
-          className="w-full mt-3 text-sm text-gray-500 hover:text-gray-700"
-        >
-          맞춤 설정 다시 하기
-        </button>
       </div>
     </div>
   );
