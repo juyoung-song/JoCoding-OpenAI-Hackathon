@@ -56,11 +56,7 @@ class Settings:
 
     # LLM
     openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
-    openai_model: str = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-    openai_fallback_models_raw: str = os.getenv(
-        "OPENAI_FALLBACK_MODELS",
-        "gpt-4.1-mini,gpt-4o-mini,gpt-4o",
-    )
+    openai_model: str = os.getenv("OPENAI_MODEL", "gpt-5-mini")
 
     # 네이버 API (쇼핑 + Local)
     naver_client_id: str = os.getenv("NAVER_CLIENT_ID", "")
@@ -138,20 +134,5 @@ class Settings:
             return []
         except Exception:
             return [value.strip().lower() for value in raw.split(",") if value.strip()]
-
-    @property
-    def openai_fallback_models(self) -> list[str]:
-        raw = self.openai_fallback_models_raw or ""
-        models = [self.openai_model.strip()] if self.openai_model.strip() else []
-        models.extend([value.strip() for value in raw.split(",") if value.strip()])
-        deduped: list[str] = []
-        seen: set[str] = set()
-        for model in models:
-            if model in seen:
-                continue
-            seen.add(model)
-            deduped.append(model)
-        return deduped
-
 
 settings = Settings()

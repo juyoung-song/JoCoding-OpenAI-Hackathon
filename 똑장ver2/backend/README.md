@@ -27,7 +27,7 @@ uvicorn src.main:app --reload --port 8000
 루트의 `.env` 파일 참고. API 키 없으면 Mock Provider 자동 사용.
 
 주요 추가 키:
-- `OPENAI_FALLBACK_MODELS`: 콤마 구분 모델 fallback 체인
+- `OPENAI_MODEL`: `gpt-5-mini` 단일 모델 사용
 - `PUBLIC_CATALOG_SYNC_ON_STARTUP`: 기동 시 KAMIS 카탈로그 자동 동기화 여부
 - `PUBLIC_CATALOG_TIMEOUT_SECONDS`: KAMIS 호출 timeout(초)
 
@@ -108,7 +108,7 @@ backend/
 
 ## 기술 스택
 
-- **FastAPI** + **LangGraph** + **GPT-4o-mini**
+- **FastAPI** + **LangGraph** + **GPT-5-mini**
 - **SQLite** (Dev) / **PostgreSQL** (Prod)
 - **네이버쇼핑 API** Hybrid Search
 - **Whisper** STT (Sprint 2)

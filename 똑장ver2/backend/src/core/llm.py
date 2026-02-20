@@ -22,11 +22,8 @@ def is_openai_configured() -> bool:
 
 
 def _iter_models() -> list[str]:
-    models = [model.strip() for model in settings.openai_fallback_models if model.strip()]
-    if models:
-        return models
-    fallback = (settings.openai_model or "").strip()
-    return [fallback] if fallback else []
+    model = (settings.openai_model or "").strip()
+    return [model] if model else []
 
 
 def _strip_code_fence(text: str) -> str:

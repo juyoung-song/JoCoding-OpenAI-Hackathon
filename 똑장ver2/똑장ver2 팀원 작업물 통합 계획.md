@@ -87,6 +87,7 @@
 ## 변동사항 (2026-02-20)
 - analyzer 프롬프트 강화에 따라 `backend/tests/test_prompt_loader.py`의 고정 문자열 검증 항목을 신규 포맷 기준으로 동기화.
 - 챗봇 라우팅 통합 테스트 범위를 보강하기 위해 `backend/tests/test_api.py`에 `SHOW_CART`/삭제 diff 회귀 케이스 추가.
+- OpenAI 프로젝트 모델 권한 정책에 맞춰 LLM 기본 모델을 `gpt-5-mini` 단일로 고정하고, `OPENAI_FALLBACK_MODELS` 기반 다중 모델 순차 시도는 비활성화.
 
 ## 가정 및 기본값
 - 사용자 지시대로 `가격 이상치 필터링(중앙값/노이즈 차단)`은 이번 통합에서 제외.

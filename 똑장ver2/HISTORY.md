@@ -1,5 +1,31 @@
 # HISTORY.md — 똑장 프로젝트 진행 이력
 
+## [2026-02-20] v3.10 OpenAI 모델 정책 정렬 — `gpt-5-mini` 단일 고정
+
+- **Status**: Completed
+- **Changes**:
+  - `backend/src/core/config.py`
+    - `OPENAI_MODEL` 기본값을 `gpt-5-mini`로 변경
+    - `OPENAI_FALLBACK_MODELS` 설정/파싱 경로 제거
+  - `backend/src/core/llm.py`
+    - 모델 선택 로직을 단일 모델(`OPENAI_MODEL`)만 사용하도록 단순화
+  - `backend/src/application/prompts/analyzer.system.txt`
+    - JSON 단일 응답 템플릿 재정비
+    - uppercase/lowercase intent, 엔터티 이중 포맷 호환 규칙 명시
+  - `backend/README.md`
+    - 환경변수 가이드에서 fallback 체인 제거
+    - 기본 LLM 기술스택 표기를 `GPT-5-mini`로 변경
+  - `똑장ver2 팀원 작업물 통합 계획.md`
+    - `## 변동사항`에 단일 모델 정책 전환 결정 반영
+  - `reference/docs/INTEGRATION_EXECUTION_PLAN_2026-02-20_v1.9.md` (신규)
+- **Decisions**:
+  - 현재 OpenAI 프로젝트 권한 기준으로 백엔드는 `gpt-5-mini` 단일 모델만 호출한다.
+  - 다중 모델 fallback은 권한 불일치 시 오탐/오류를 확대하므로 이번 배치에서 비활성화한다.
+- **Verification**:
+  - `cd backend && pytest -q` -> `59 passed`
+
+---
+
 ## [2026-02-20] v3.9 환경설정 SoR 고정 — 루트 `.env` 단일 소스화
 
 - **Status**: Completed
