@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { LogIn } from "lucide-react";
 
-import { AuthAPI } from "../api";
+import { AuthAPI, PreferencesAPI } from "../api";
 import { useApp } from "../app/store/AppContext";
+import { hasCompletedOnboarding, markOnboardingCompleted, setLastLoginEmail } from "../app/onboardingState";
 import { useToast } from "../shared/ui/ToastProvider";
 
 export default function LoginScreen() {
@@ -49,9 +50,30 @@ export default function LoginScreen() {
 
             setSubmitting(true);
             try {
-              await AuthAPI.login(normalizedEmail, name.trim() || undefined);
+              const loginResponse = await AuthAPI.login(normalizedEmail, name.trim() || undefined);
+              const userEmail = (loginResponse.user?.email ?? normalizedEmail).trim().toLowerCase();
+              setLastLoginEmail(userEmail);
+
+              let needsOnboarding = !hasCompletedOnboarding(userEmail);
+              if (needsOnboarding) {
+                try {
+                  const [likeBrands, dislikeBrands] = await Promise.all([
+                    PreferencesAPI.getBrands("like"),
+                    PreferencesAPI.getBrands("dislike"),
+                  ]);
+                  const hasSavedPreference =
+                    (likeBrands.brands?.length ?? 0) + (dislikeBrands.brands?.length ?? 0) > 0;
+                  if (hasSavedPreference) {
+                    markOnboardingCompleted(userEmail);
+                    needsOnboarding = false;
+                  }
+                } catch (preferenceError) {
+                  console.warn("Failed to load preference snapshot on login", preferenceError);
+                }
+              }
+
               showToast("베타 로그인에 성공했습니다.", "success");
-              setCurrentScreen("HOME");
+              setCurrentScreen(needsOnboarding ? "ONBOARDING" : "HOME");
             } catch (error) {
               console.error("Login failed", error);
               showToast("로그인에 실패했습니다. 이메일을 다시 확인해주세요.", "error");
@@ -66,7 +88,7 @@ export default function LoginScreen() {
         </button>
 
         <button
-          onClick={() => setCurrentScreen("ONBOARDING")}
+          onClick={() => showToast("맞춤 설정은 로그인 후 진행할 수 있어요.", "info")}
           className="w-full mt-3 text-sm text-gray-500 hover:text-gray-700"
         >
           맞춤 설정 다시 하기

@@ -1,7 +1,13 @@
 """챗봇 장바구니 파싱 로직 단위 테스트."""
 from langchain_core.messages import HumanMessage
 
-from src.application.graph import _build_item_followup, _parse_modify_intent
+from src.application.graph import (
+    _build_item_followup,
+    _keyword_classify,
+    _normalize_llm_entities,
+    _parse_modify_intent,
+    normalize_agent_intent,
+)
 
 
 def test_parse_context_followup_uses_previous_item():
@@ -58,3 +64,22 @@ def test_vita500_followup_uses_ml_example():
     assert needs_followup is True
     assert "100ml" in _build_item_followup("비타500")
 
+
+def test_intent_normalization_supports_uppercase_intents():
+    assert normalize_agent_intent("ADD_ITEM") == "modify"
+    assert normalize_agent_intent("REMOVE_ITEM") == "modify"
+    assert normalize_agent_intent("SHOW_CART") == "show_cart"
+    assert normalize_agent_intent("GENERAL") == "general"
+
+
+def test_keyword_classify_detects_show_cart():
+    assert _keyword_classify("장바구니 보여줘") == "show_cart"
+
+
+def test_normalize_llm_entities_supports_item_text_and_remove_all():
+    entities = _normalize_llm_entities(
+        [{"itemText": "계란 30구", "quantity": 1, "removeAll": True}],
+        default_action="add",
+    )
+    assert entities[0]["item_name"] == "계란 30구"
+    assert entities[0]["action"] == "remove"

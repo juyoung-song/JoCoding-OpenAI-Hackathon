@@ -80,6 +80,42 @@ def _build_basket_context(items: list[BasketItem]) -> str:
     return "\n".join(lines)
 
 
+def _build_show_cart_content(items: list[BasketItem]) -> str:
+    if not items:
+        return "현재 장바구니가 비어 있어요.\n원하는 품목을 말씀해주시면 바로 담아드릴게요."
+
+    lines: list[str] = []
+    for item in items[:10]:
+        parts = [item.brand or "", item.item_name, f"({item.size})" if item.size else "", f"x{item.quantity}"]
+        lines.append(f"- {' '.join(part for part in parts if part).strip()}")
+    if len(items) > 10:
+        lines.append(f"- 외 {len(items) - 10}개")
+    return f"현재 장바구니에는 {len(items)}개 품목이 있어요.\n{chr(10).join(lines)}"
+
+
+def _is_llm_access_issue(error_text: str | None) -> bool:
+    lowered = (error_text or "").lower()
+    return any(
+        token in lowered
+        for token in (
+            "openai_not_configured",
+            "openai_temporarily_blocked",
+            "permissiondeniederror",
+            "does not have access to model",
+            "openai_all_models_failed",
+        )
+    )
+
+
+def _build_llm_degraded_notice(error_text: str | None) -> str | None:
+    if not _is_llm_access_issue(error_text):
+        return None
+    return (
+        "안내: 현재 OpenAI 프로젝트 모델 권한 문제로 "
+        "규칙 기반 응답으로 동작 중입니다. API 키/프로젝트 모델 권한을 확인해주세요."
+    )
+
+
 def _basket_item_key(item: BasketItem) -> str:
     return "|".join(
         [
@@ -253,11 +289,14 @@ async def send_message(
         user_id=user_id,
     )
     chat_history = _chat_history_for_user(user_id)
+    resolved_intent = "general"
+    llm_degraded = False
+    llm_error: str | None = None
 
     # LangGraph 연동 시도 — API 키 없으면 fallback
     try:
         from langchain_core.messages import HumanMessage, AIMessage
-        from src.application.graph import agent_graph
+        from src.application.graph import agent_graph, normalize_agent_intent
 
         initial_state = {
             "messages": chat_history + [HumanMessage(content=payload.message)],
@@ -270,10 +309,17 @@ async def send_message(
             "next_step": None,
             "final_response": None,
             "user_id": user_id,
+            "llm_degraded": False,
+            "llm_error": None,
         }
 
         final_state = await agent_graph.ainvoke(initial_state)
-        response_content = final_state.get("final_response", "죄송해요, 잠시 문제가 생겼어요.")
+        resolved_intent = normalize_agent_intent(final_state.get("intent"))
+        llm_degraded = bool(final_state.get("llm_degraded"))
+        llm_error = str(final_state.get("llm_error") or "") or None
+        response_content = str(final_state.get("final_response") or "죄송해요, 잠시 문제가 생겼어요.")
+        if resolved_intent == "show_cart":
+            response_content = _build_show_cart_content(get_basket_store(user_id).items)
 
         # 히스토리 업데이트
         chat_history.append(HumanMessage(content=payload.message))
@@ -281,6 +327,8 @@ async def send_message(
 
     except Exception as e:
         logger.warning("LangGraph 실행 실패 (fallback 응답): %s", e)
+        llm_degraded = True
+        llm_error = str(e)
         try:
             from langchain_core.messages import HumanMessage, AIMessage
             from src.application.graph import (
@@ -288,9 +336,12 @@ async def send_message(
                 clarifier_node,
                 general_node,
                 modifier_node,
+                normalize_agent_intent,
                 recommender_node,
+                show_cart_node,
             )
 
+            fallback_intent = normalize_agent_intent(_keyword_classify(payload.message))
             fallback_state = {
                 "messages": [HumanMessage(content=payload.message)],
                 "user_preferences": (
@@ -298,15 +349,20 @@ async def send_message(
                     f"비선호: {', '.join(disliked_brands) if disliked_brands else '없음'}"
                 ),
                 "matcher_entities": matcher_entities,
-                "intent": _keyword_classify(payload.message),
+                "intent": fallback_intent,
                 "next_step": None,
                 "final_response": None,
                 "user_id": user_id,
+                "llm_degraded": True,
+                "llm_error": str(e),
             }
 
             intent = str(fallback_state["intent"])
+            resolved_intent = intent
             if intent == "modify":
                 fallback_result = await modifier_node(fallback_state)
+            elif intent == "show_cart":
+                fallback_result = await show_cart_node(fallback_state)
             elif intent == "recommend":
                 fallback_result = await recommender_node(fallback_state)
             elif intent == "clarify":
@@ -318,6 +374,8 @@ async def send_message(
                 fallback_result.get("final_response")
                 or f"장바구니에는 {len(basket.items)}개 품목이 있어요.\n\n**장바구니 현황**:\n{basket_context}"
             )
+            if resolved_intent == "show_cart":
+                response_content = _build_show_cart_content(get_basket_store(user_id).items)
 
             chat_history.append(HumanMessage(content=payload.message))
             chat_history.append(AIMessage(content=response_content))
@@ -332,6 +390,11 @@ async def send_message(
     await save_basket_store_to_db(raw_request, user_id)
     after_basket = get_basket_store(user_id)
     basket_diff = _build_basket_diff(before_snapshot, _snapshot_basket(after_basket.items))
+    if resolved_intent == "show_cart":
+        response_content = _build_show_cart_content(after_basket.items)
+    llm_notice = _build_llm_degraded_notice(llm_error if llm_degraded else None)
+    if llm_notice:
+        response_content = f"{response_content}\n\n{llm_notice}"
 
     # 추천 검색어
     suggestions = (

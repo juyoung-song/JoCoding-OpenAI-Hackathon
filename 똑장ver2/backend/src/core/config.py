@@ -7,12 +7,12 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-# .env 로딩 (backend/.env → 루트/.env → /tmp/ddokjang/.env)
+# .env 로딩 (루트 .env 단일 SoR, /tmp/ddokjang/.env는 예비 fallback)
 _BACKEND_DIR = Path(__file__).resolve().parent.parent.parent  # backend/
+_PROJECT_ROOT = _BACKEND_DIR.parent
 _ENV_LOADED = False
 for _env in [
-    _BACKEND_DIR / ".env",
-    _BACKEND_DIR.parent / ".env",
+    _PROJECT_ROOT / ".env",
     Path("/tmp/ddokjang/.env"),
 ]:
     try:

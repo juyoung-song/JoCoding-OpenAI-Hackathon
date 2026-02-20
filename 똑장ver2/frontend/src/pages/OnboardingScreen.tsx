@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { ArrowUp, MapPin, Bus, Globe, Heart, Ban } from "lucide-react";
 import { useApp } from "../app/store/AppContext";
 import { PreferencesAPI, type PlanTravelMode } from "../api";
+import { getLastLoginEmail, markOnboardingCompleted } from "../app/onboardingState";
 import ddokjangLogo from "../assets/ddokjang-logo.png";
 
 function AiMessageBubble({ children }: { children: ReactNode }) {
@@ -165,7 +166,7 @@ const resolveLocationContext = async (input: string) => {
 };
 
 export default function OnboardingScreen() {
-  const { setCurrentScreen, updatePlanUserContext } = useApp();
+  const { setCurrentScreen, updatePlanUserContext, userProfile } = useApp();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -210,6 +211,8 @@ export default function OnboardingScreen() {
   };
 
   const finishOnboarding = () => {
+    const markerEmail = (userProfile.email || getLastLoginEmail()).trim().toLowerCase();
+    markOnboardingCompleted(markerEmail);
     addAiMessage("모든 설정이 완료되었습니다! 똑장 홈으로 이동할게요. 🚀");
     setStep("DONE");
     setTimeout(() => {
@@ -315,7 +318,11 @@ export default function OnboardingScreen() {
         <div className="w-10" />
         <h1 className="text-base font-bold text-gray-900">맞춤 설정</h1>
         <button
-          onClick={() => setCurrentScreen("HOME")}
+          onClick={() => {
+            const markerEmail = (userProfile.email || getLastLoginEmail()).trim().toLowerCase();
+            markOnboardingCompleted(markerEmail);
+            setCurrentScreen("HOME");
+          }}
           className="text-gray-400 text-sm font-medium hover:text-gray-600 transition-colors"
         >
           건너뛰기

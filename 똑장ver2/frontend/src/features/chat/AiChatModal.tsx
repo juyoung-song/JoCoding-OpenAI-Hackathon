@@ -145,12 +145,6 @@ export default function AiChatFullScreen() {
                 >
                   <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
                 </div>
-                {message.role === "assistant" ? (
-                  <div className="flex items-center gap-1.5 text-xs text-gray-400 px-2">
-                    <div className="w-1 h-1 bg-green-500 rounded-full" />
-                    <span>AI 분석 완료</span>
-                  </div>
-                ) : null}
               </div>
             </div>
           ))}

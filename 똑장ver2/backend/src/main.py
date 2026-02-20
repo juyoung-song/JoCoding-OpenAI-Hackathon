@@ -2,10 +2,8 @@ from __future__ import annotations
 import asyncio
 import logging
 from contextlib import asynccontextmanager, suppress
-from pathlib import Path
 from typing import AsyncGenerator
 
-from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -31,7 +29,6 @@ from src.infrastructure.persistence.seed_offline_mock_data import seed_offline_m
 from src.infrastructure.persistence.user_repository import UserRepository
 from src.infrastructure.providers.mock_providers import MockRoutingProvider, MockWeatherProvider
 
-load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
 install_sensitive_data_filter()
 logging.getLogger("httpx").setLevel(logging.WARNING)

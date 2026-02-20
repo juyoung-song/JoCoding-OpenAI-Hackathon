@@ -343,7 +343,7 @@ const isAuthError = (error: unknown) => {
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const { showToast } = useToast();
-  const [currentScreen, setCurrentScreen] = useState<Screen>(hasAuthSession() ? "ONBOARDING" : "LOGIN");
+  const [currentScreen, setCurrentScreen] = useState<Screen>(hasAuthSession() ? "HOME" : "LOGIN");
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [selectedMode, setSelectedMode] = useState<"ONLINE" | "OFFLINE" | null>(null);
   const [pendingChatMessage, setPendingChatMessage] = useState("");
@@ -611,11 +611,6 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchPlans = useCallback(
     async (modeOverride?: "ONLINE" | "OFFLINE" | null) => {
-      if (cartItems.length === 0) {
-        setCurrentScreen("CART_VIEW");
-        return;
-      }
-
       setIsPlansLoading(true);
       if (currentScreen !== "TOP3_RESULT") {
         setCurrentScreen("LOADING");
@@ -626,7 +621,20 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
           setSelectedMode(modeOverride);
         }
 
-        const items = cartItems.map((item) => ({
+        let sourceCartItems = cartItems;
+        if (sourceCartItems.length === 0) {
+          const basketData = await BasketAPI.getBasket();
+          const syncedCartItems = toCartItems(basketData, knownPriceMap);
+          setCartItems(syncedCartItems);
+          sourceCartItems = syncedCartItems;
+        }
+
+        if (sourceCartItems.length === 0) {
+          setCurrentScreen("CART_VIEW");
+          return;
+        }
+
+        const items = sourceCartItems.map((item) => ({
           item_name: item.name,
           brand: item.brand ?? undefined,
           quantity: item.quantity,
@@ -658,7 +666,16 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         setIsPlansLoading(false);
       }
     },
-    [cartItems, currentScreen, selectedMode, planUserContext, showToast, updateKnownPrices, handleAuthFailure]
+    [
+      cartItems,
+      currentScreen,
+      selectedMode,
+      planUserContext,
+      showToast,
+      updateKnownPrices,
+      handleAuthFailure,
+      knownPriceMap,
+    ]
   );
 
   const completeCurrentOrder = useCallback(async () => {

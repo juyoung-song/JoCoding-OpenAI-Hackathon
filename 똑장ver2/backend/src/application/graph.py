@@ -16,8 +16,18 @@ from src.api.v1.routers.basket import get_basket_store
 
 logger = logging.getLogger(__name__)
 
-ADD_KEYWORDS = ("담아", "추가", "넣어", "사줘", "주문", "장바구니")
+ADD_KEYWORDS = ("담아", "추가", "넣어", "사줘", "주문")
 REMOVE_KEYWORDS = ("빼줘", "빼", "삭제", "취소", "지워", "제거")
+SHOW_CART_KEYWORDS = (
+    "장바구니 보여",
+    "장바구니 확인",
+    "장바구니 현황",
+    "장바구니 뭐",
+    "카트 보여",
+    "카트 확인",
+    "카트 현황",
+    "담긴 거 보여",
+)
 RECOMMEND_KEYWORDS = ("추천", "뭐 먹", "어떤", "레시피")
 ASK_KEYWORDS = ("그거", "아까", "어떤 거")
 QUANTITY_PATTERN = re.compile(r"(\d+)\s*(개|봉|팩|세트|병|캔|통|줄|묶음)")
@@ -136,9 +146,35 @@ class ChatState(TypedDict):
     next_step: str | None
     final_response: str | None
     user_id: str
+    llm_degraded: bool | None
+    llm_error: str | None
 
 
 # ── 2. LLM 설정 (모델 fallback) ─────────────────────────────────────
+
+
+def normalize_agent_intent(raw_intent: object) -> str:
+    """LLM/규칙 결과 intent를 내부 표준 intent로 정규화."""
+    key = str(raw_intent or "").strip().lower()
+    if not key:
+        return "general"
+    mapping = {
+        "add_item": "modify",
+        "remove_item": "modify",
+        "show_cart": "show_cart",
+        "general": "general",
+        "modify": "modify",
+        "recommend": "recommend",
+        "clarify": "clarify",
+    }
+    return mapping.get(key, "general")
+
+
+def _default_entity_action_from_intent(raw_intent: object) -> str:
+    key = str(raw_intent or "").strip().lower()
+    if key in {"remove_item", "remove"}:
+        return "remove"
+    return "add"
 
 
 # ── 3. Node 구현 ────────────────────────────────────────────────────
@@ -152,7 +188,11 @@ async def analyzer_node(state: ChatState) -> dict:
     if not is_openai_configured():
         # API 키 없음 → 키워드 기반 간단 분류
         intent = _keyword_classify(last_msg)
-        return {"intent": intent}
+        return {
+            "intent": intent,
+            "llm_degraded": True,
+            "llm_error": "OPENAI_NOT_CONFIGURED",
+        }
 
     basket_desc = ", ".join(
         f"{i.item_name}({i.brand or '추천'})" for i in basket.items
@@ -167,8 +207,13 @@ async def analyzer_node(state: ChatState) -> dict:
     try:
         messages = [SystemMessage(content=prompt)] + list(state["messages"])
         result = await ainvoke_json_with_model_fallback(messages, temperature=0.1)
-        intent = _override_intent_with_item_heuristic(last_msg, result.get("intent", "general"))
-        llm_entities = _normalize_llm_entities(result.get("entities"))
+        raw_intent = result.get("intent", "general")
+        normalized_intent = normalize_agent_intent(raw_intent)
+        intent = _override_intent_with_item_heuristic(last_msg, normalized_intent)
+        llm_entities = _normalize_llm_entities(
+            result.get("entities"),
+            default_action=_default_entity_action_from_intent(raw_intent),
+        )
         merged_entities = _merge_matcher_entities(
             state.get("matcher_entities"),
             llm_entities,
@@ -176,13 +221,19 @@ async def analyzer_node(state: ChatState) -> dict:
         return {
             "intent": intent,
             "matcher_entities": merged_entities,
+            "llm_degraded": False,
+            "llm_error": None,
         }
     except Exception as exc:
         logger.warning("LLM analyzer failed, fallback classifier used: %s", exc)
-        return {"intent": _keyword_classify(last_msg)}
+        return {
+            "intent": _keyword_classify(last_msg),
+            "llm_degraded": True,
+            "llm_error": str(exc),
+        }
 
 
-def _normalize_llm_entities(raw_entities: object) -> list[dict]:
+def _normalize_llm_entities(raw_entities: object, default_action: str = "add") -> list[dict]:
     if not isinstance(raw_entities, list):
         return []
 
@@ -191,13 +242,21 @@ def _normalize_llm_entities(raw_entities: object) -> list[dict]:
         if not isinstance(raw, dict):
             continue
 
-        item_name = str(raw.get("item_name") or "").strip()
+        item_name = str(
+            raw.get("item_name")
+            or raw.get("itemText")
+            or raw.get("item_text")
+            or ""
+        ).strip()
         if not item_name:
             continue
 
-        action = str(raw.get("action") or "add").strip().lower()
+        remove_all = bool(raw.get("removeAll"))
+        action = str(raw.get("action") or "").strip().lower()
+        if not action:
+            action = "remove" if remove_all else default_action
         if action not in {"add", "remove"}:
-            action = "add"
+            action = default_action if default_action in {"add", "remove"} else "add"
 
         try:
             quantity = max(1, int(raw.get("quantity") or 1))
@@ -264,6 +323,9 @@ def _merge_matcher_entities(
 def _keyword_classify(text: str) -> str:
     """API 키 없을 때 키워드 기반 간단 분류."""
     normalized = text.strip().lower()
+    for kw in SHOW_CART_KEYWORDS:
+        if kw in normalized:
+            return "show_cart"
     for kw in ADD_KEYWORDS + REMOVE_KEYWORDS:
         if kw in normalized:
             return "modify"
@@ -280,6 +342,8 @@ def _keyword_classify(text: str) -> str:
 
 def _override_intent_with_item_heuristic(text: str, llm_intent: str) -> str:
     """LLM이 general/clarify로 분류해도 품목 단독 발화면 modify로 보정."""
+    if llm_intent == "show_cart":
+        return "show_cart"
     normalized = text.strip().lower()
     has_modify_signal = _extract_item_name(text) or any(
         keyword in normalized for keyword in (*ADD_KEYWORDS, *REMOVE_KEYWORDS)
@@ -670,15 +734,43 @@ async def general_node(state: ChatState) -> dict:
     return {"final_response": msg}
 
 
+async def show_cart_node(state: ChatState) -> dict:
+    """장바구니 요약 노드."""
+    basket = get_basket_store(state.get("user_id", "unknown_user"))
+    if not basket.items:
+        return {
+            "final_response": (
+                "현재 장바구니가 비어 있어요.\n"
+                "원하는 품목을 말씀해주시면 바로 담아드릴게요."
+            )
+        }
+
+    lines: list[str] = []
+    for item in basket.items[:10]:
+        label_parts = [item.brand, item.item_name, f"({item.size})" if item.size else None]
+        label = " ".join(part for part in label_parts if part).strip()
+        lines.append(f"- {label} x{item.quantity}")
+    if len(basket.items) > 10:
+        lines.append(f"- 외 {len(basket.items) - 10}개")
+
+    return {
+        "final_response": (
+            f"현재 장바구니에는 {len(basket.items)}개 품목이 있어요.\n"
+            f"{chr(10).join(lines)}"
+        )
+    }
+
+
 # ── 4. Conditional Edge ─────────────────────────────────────────────
 
-def route_intent(state: ChatState) -> Literal["modifier", "recommender", "clarifier", "general"]:
+def route_intent(state: ChatState) -> Literal["modifier", "recommender", "clarifier", "show_cart", "general"]:
     """Intent에 따라 다음 노드 결정."""
     intent = state.get("intent", "general")
     mapping = {
         "modify": "modifier",
         "recommend": "recommender",
         "clarify": "clarifier",
+        "show_cart": "show_cart",
         "general": "general",
     }
     return mapping.get(intent, "general")
@@ -692,6 +784,7 @@ workflow.add_node("analyzer", analyzer_node)
 workflow.add_node("modifier", modifier_node)
 workflow.add_node("recommender", recommender_node)
 workflow.add_node("clarifier", clarifier_node)
+workflow.add_node("show_cart", show_cart_node)
 workflow.add_node("general", general_node)
 
 workflow.set_entry_point("analyzer")
@@ -703,6 +796,7 @@ workflow.add_conditional_edges(
         "modifier": "modifier",
         "recommender": "recommender",
         "clarifier": "clarifier",
+        "show_cart": "show_cart",
         "general": "general",
     },
 )
@@ -710,6 +804,7 @@ workflow.add_conditional_edges(
 workflow.add_edge("modifier", END)
 workflow.add_edge("recommender", END)
 workflow.add_edge("clarifier", END)
+workflow.add_edge("show_cart", END)
 workflow.add_edge("general", END)
 
 # 컴파일

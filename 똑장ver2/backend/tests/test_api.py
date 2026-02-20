@@ -195,6 +195,44 @@ class TestChatAPI:
         assert payload["diff"] is not None
         assert any(diff["item"]["item_name"] == "깻잎" for diff in payload["diff"])
 
+    @pytest.mark.asyncio
+    async def test_chat_remove_item_generates_diff(self, client, auth):
+        headers = {"Authorization": auth["Authorization"]}
+        await client.post(
+            "/api/v1/basket/items",
+            headers=headers,
+            json={"item_name": "우유", "quantity": 1},
+        )
+        msg = await client.post(
+            "/api/v1/chat/message",
+            headers=headers,
+            json={"message": "우유 빼줘"},
+        )
+        assert msg.status_code == 200
+        payload = msg.json()
+        assert payload["diff"] is not None
+        assert any(diff["action"] == "remove" for diff in payload["diff"])
+
+    @pytest.mark.asyncio
+    async def test_chat_show_cart_returns_summary_without_mutation(self, client, auth):
+        headers = {"Authorization": auth["Authorization"]}
+        await client.delete("/api/v1/basket", headers=headers)
+        await client.post(
+            "/api/v1/basket/items",
+            headers=headers,
+            json={"item_name": "계란", "size": "30구", "quantity": 1},
+        )
+
+        msg = await client.post(
+            "/api/v1/chat/message",
+            headers=headers,
+            json={"message": "장바구니 보여줘"},
+        )
+        assert msg.status_code == 200
+        payload = msg.json()
+        assert "장바구니" in payload["content"]
+        assert payload["diff"] == []
+
 
 class TestPlansAPI:
     @pytest.mark.asyncio

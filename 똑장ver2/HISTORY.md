@@ -1,5 +1,103 @@
 # HISTORY.md — 똑장 프로젝트 진행 이력
 
+## [2026-02-20] v3.9 환경설정 SoR 고정 — 루트 `.env` 단일 소스화
+
+- **Status**: Completed
+- **Changes**:
+  - `backend/src/core/config.py`
+    - `.env` 로딩 순서를 `루트(.env) -> /tmp/ddokjang/.env`로 고정
+    - `backend/.env` 자동 로딩 경로 제거 (루트 `.env` 단일 SoR 적용)
+  - `backend/src/main.py`
+    - 별도 `load_dotenv(backend/.env)` 호출 제거
+  - `backend/.env`
+    - 런타임 SoR 아님(루트 `.env` 사용) 안내 주석 추가
+- **Decisions**:
+  - 로컬 실행 기준 환경변수 SoR은 `똑장ver2/.env` 하나로 통일한다.
+  - `backend/.env`는 참고/백업 성격으로만 유지한다.
+
+---
+
+## [2026-02-20] v3.8 로그인-온보딩 게이트 보강 + LLM 권한 진단 + 채팅 UI 정리
+
+- **Status**: Completed
+- **Changes**:
+  - `frontend/src/app/onboardingState.ts` (신규)
+    - 사용자 이메일 기준 온보딩 완료 상태 저장/조회 유틸 추가
+    - 마지막 로그인 이메일 추적 키 추가
+  - `frontend/src/pages/LoginScreen.tsx`
+    - 로그인 성공 후 온보딩 필요 여부를 검사해 `ONBOARDING`/`HOME` 분기
+    - 비로그인 상태의 `맞춤 설정 다시 하기`가 온보딩으로 직접 진입하지 않도록 차단
+  - `frontend/src/pages/OnboardingScreen.tsx`
+    - 온보딩 완료/건너뛰기 시 온보딩 완료 상태를 사용자 기준으로 저장
+  - `frontend/src/app/store/AppContext.tsx`
+    - 인증 세션 보유 시 초기 화면을 `ONBOARDING`이 아닌 `HOME`으로 조정
+  - `frontend/src/features/chat/AiChatModal.tsx`
+    - 모든 응답 하단에 반복 표기되던 `AI 분석 완료` 문구 제거
+  - `backend/src/application/graph.py`
+    - analyzer 단계에 `llm_degraded`, `llm_error` 상태 추가
+    - OpenAI 미설정/호출 실패 시 fallback과 함께 진단 정보 유지
+  - `backend/src/api/v1/routers/chat.py`
+    - LLM 권한/설정 이슈 감지 시 사용자 안내 문구를 응답 하단에 추가
+- **Decisions**:
+  - 로그인 전에는 온보딩(맞춤설정) 진입을 허용하지 않는다.
+  - LLM 실패를 무음 fallback으로 숨기지 않고, 모델 권한 문제를 사용자에게 명시한다.
+- **Verification**:
+  - `cd backend && pytest -q` -> `59 passed`
+  - `cd frontend && npm run build` -> `vite build success`
+  - OpenAI 런타임 점검:
+    - 키 로드 상태: configured=`True`
+    - 실제 호출 결과: 모든 후보 모델에서 `PermissionDeniedError` (프로젝트 모델 권한 없음)
+
+---
+
+## [2026-02-20] v3.7 팀원 작업물 통합 배치 — 챗봇 라우팅/SoR 동기화 강화
+
+- **Status**: Completed
+- **Progress Log**:
+  - `backup/2026-02-20_team_merge/` 생성 및 수정 대상 파일 사전 백업 완료
+  - `.gitignore`에 `backup/` 규칙 반영 완료
+  - `graph.py`에 intent 정규화 + `show_cart` 노드/라우팅 반영 완료
+  - `chat.py` 메인/폴백 경로 intent 정규화 통합 및 `SHOW_CART` 응답 일관화 완료
+  - `AppContext.tsx` `fetchPlans` 서버 SoR 재조회 로직 반영 완료
+  - 테스트 실패(`test_prompt_loader`) 기대값 동기화 후 전수 테스트 재통과
+- **Changes**:
+  - `.gitignore`
+    - `backup/` 커밋 제외 규칙 추가
+  - `backend/src/application/prompts/analyzer.system.txt`
+    - 순수 JSON 단일 응답 지침 강화
+    - uppercase/lowercase intent 이중 호환 정의
+    - 엔터티 필드(`item_name` + `itemText`, `action` + `removeAll`) 병행 규격 명시
+  - `backend/src/application/graph.py`
+    - `normalize_agent_intent()`, `_default_entity_action_from_intent()` 추가
+    - `_normalize_llm_entities()` 이중 포맷 파싱 확장
+    - `_keyword_classify()`에 `show_cart` 분기 추가
+    - `show_cart_node()` 추가 및 그래프 edge 연결
+  - `backend/src/api/v1/routers/chat.py`
+    - `_build_show_cart_content()` 추가
+    - 메인/폴백 모두 intent 정규화 경로 통합
+    - `show_cart` 시 요약 content 후처리 일관성 보장
+  - `frontend/src/app/store/AppContext.tsx`
+    - `fetchPlans`에서 로컬 카트 0개 시 서버 basket 재조회 후 판단하도록 변경
+  - `backend/tests/test_graph_parsing.py`
+    - uppercase intent/`show_cart`/신규 엔터티 포맷 테스트 추가
+  - `backend/tests/test_api.py`
+    - 챗봇 삭제 diff 테스트 추가
+    - `장바구니 보여줘` 요약 응답 + 비변경 diff 테스트 추가
+  - `backend/tests/test_prompt_loader.py`
+    - analyzer 프롬프트 기대 문자열을 신규 포맷 기준으로 동기화
+  - `reference/docs/INTEGRATION_EXECUTION_PLAN_2026-02-20_v1.8.md` (신규)
+  - `똑장ver2 팀원 작업물 통합 계획.md`
+    - `변동사항 (2026-02-20)` 섹션 추가
+- **Decisions**:
+  - 가격 이상치 필터링은 이번 배치에서 제외한다.
+  - 챗봇 API 응답 계약(`role/content/diff/suggestions`)은 유지한다.
+  - Git 루트 미감지 환경이므로 문서(`INTEGRATION_EXECUTION_PLAN`, `HISTORY`)를 작업 SoR로 유지한다.
+- **Verification**:
+  - `cd backend && pytest -q` -> `59 passed`
+  - `cd frontend && npm run build` -> `vite build success`
+
+---
+
 ## [2026-02-20] v3.6 프롬프트 분리 리팩터링 — 코드/프롬프트 의존성 해소
 
 - **Status**: Completed
