@@ -33,7 +33,7 @@ services:
     depends_on:
       - api
     ports:
-      - "${WEB_PORT:-3000}:3000"
+      - "80:3000"
     restart: unless-stopped
     logging:
       driver: json-file
