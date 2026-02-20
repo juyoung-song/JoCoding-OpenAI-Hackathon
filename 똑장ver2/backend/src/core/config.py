@@ -39,8 +39,8 @@ class Settings:
     debug: bool = os.getenv("DEBUG", "true").lower() == "true"
     api_prefix: str = os.getenv("API_PREFIX", "/api/v1")
 
-    # DB (한글 경로 sqlite3 오류 방지 — /tmp/ddokjang/ 사용)
-    db_path: str = os.getenv("DB_PATH", str(_DATA_DIR / "app.db"))
+    # DB (MAIN_DB_PATH 우선, 기존 DB_PATH fallback)
+    db_path: str = os.getenv("MAIN_DB_PATH") or os.getenv("DB_PATH", str(_DATA_DIR / "main.db"))
     cache_db_path: str = os.getenv("CACHE_DB_PATH", str(_DATA_DIR / "cache.db"))
 
     # Auth / Session
@@ -66,8 +66,8 @@ class Settings:
     ncp_client_id: str = os.getenv("NCP_CLIENT_ID", "")
     ncp_client_secret: str = os.getenv("NCP_CLIENT_SECRET", "")
 
-    # 기상청
-    kma_service_key: str = os.getenv("KMA_SERVICE_KEY", "")
+    # 기상청 (WEATHER_API_KEY fallback 허용)
+    kma_service_key: str = os.getenv("KMA_SERVICE_KEY") or os.getenv("WEATHER_API_KEY", "")
 
     # KAMIS (농축산물 가격)
     kamis_cert_key: str = os.getenv("KAMIS_CERT_KEY", "")

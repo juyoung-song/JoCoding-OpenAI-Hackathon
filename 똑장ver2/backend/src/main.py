@@ -193,4 +193,4 @@ async def api_root():
 
 @app.get("/health")
 async def health():
-    return {"status": "ok", "service": "똑장"}
+    return {"ok": True}
