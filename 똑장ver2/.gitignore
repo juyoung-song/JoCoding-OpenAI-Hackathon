@@ -1,0 +1,37 @@
+.env
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# DB 파일
+*.db
+*.db-shm
+*.db-wal
+
+# 로그
+*.log
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Node
+node_modules/
+.next/
+dist/
+
+# 빌드 산출물
+*.whl
+*.tar.gz
